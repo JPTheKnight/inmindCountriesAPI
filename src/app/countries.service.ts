@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Country } from './country';
 
 @Injectable({
@@ -19,7 +19,20 @@ export class CountriesService {
     return this.http.get<Country[]>(this.mainUrl + 'all');
   }
 
-  getCountry(name: string): Observable<Country[]> {
-    return this.http.get<Country[]>(this.mainUrl + 'name/' + name);
+  getCountry(name: string, type: string): Observable<Country[]> {
+    return this.http.get<Country[]>(this.mainUrl + type + '/' + name);
+  }
+
+  getCountriesToASpecificRegion(region: string) {
+    return this.http.get<Country[]>(this.mainUrl + 'region/' + region);
+  }
+
+  searchCountries(term: string): Observable<Country[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Country[]>(
+      this.mainUrl + 'name/' + term + '?fulltext=true'
+    );
   }
 }

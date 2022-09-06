@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from 'src/app/countries.service';
 import { Country } from 'src/app/country';
+import { Observable, Subject, of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -8,9 +15,12 @@ import { Country } from 'src/app/country';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  constructor(private countriesServcice: CountriesService) {}
+  constructor(private countriesService: CountriesService) {}
 
   countries: Country[] = [];
+  countries$: Observable<Country[]> = of([]);
+  private searchTerms = new Subject<string>();
+  totalCountries: number = 0;
 
   ngOnInit(): void {
     const filterDialog = document.getElementById(
@@ -25,19 +35,19 @@ export class MainComponent implements OnInit {
       }
     });
 
-    this.countriesServcice
-      .getAllCountries()
-      .subscribe((c) => (this.countries = c));
-  }
+    this.countriesService.getAllCountries().subscribe((c) => {
+      this.totalCountries = c.length;
+      this.countries = c;
+      return (this.countries$ = of(c));
+    });
 
-  onCloseMenu() {
-    const sideMenu = document.getElementById('side-menu-bg');
-    if (sideMenu != null) sideMenu.style.display = 'none';
-  }
-
-  onOpenMenu() {
-    const sideMenu = document.getElementById('side-menu-bg');
-    if (sideMenu != null) sideMenu.style.display = 'block';
+    this.searchTerms
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term: string) => this.countriesService.searchCountries(term))
+      )
+      .subscribe((data) => (this.countries$ = of(data)));
   }
 
   showFilters() {
@@ -45,35 +55,32 @@ export class MainComponent implements OnInit {
     if (filterDialog != null) filterDialog.style.display = 'flex';
   }
 
-  showCountryDetails(name: string) {}
-
-  nFormatter = (value: number) => {
-    var newValueStr: string = '';
-    if (value >= 1000) {
-      var suffixes: string[] = ['', 'k', 'm', 'b', 't'];
-      var suffixNum: number = Math.floor(('' + value).length / 3);
-      var shortValue: number = 0;
-      for (var precision = 2; precision >= 1; precision--) {
-        shortValue = parseFloat(
-          (suffixNum != 0
-            ? value / Math.pow(1000, suffixNum)
-            : value
-          ).toPrecision(precision)
-        );
-        var dotLessShortValue = (shortValue + '').replace(
-          /[^a-zA-Z 0-9]+/g,
-          ''
-        );
-        if (dotLessShortValue.length <= 2) {
-          break;
-        }
-      }
-      var shortValueStr: string = '';
-      if (shortValue % 1 != 0) shortValueStr = shortValue.toFixed(1);
-      newValueStr = shortValue + suffixes[suffixNum];
+  search(term: string): void {
+    if (term != '') this.searchTerms.next(term);
+    else {
+      this.countries$ = of(this.countries);
     }
-    return newValueStr;
-  };
+  }
+
+  getRegions(region: string) {
+    this.countries = [];
+    this.countries$ = of([]);
+    if (region == 'All') {
+      this.countriesService.getAllCountries().subscribe((c) => {
+        this.totalCountries = c.length;
+        this.countries = c;
+        return (this.countries$ = of(c));
+      });
+    } else {
+      this.countriesService
+        .getCountriesToASpecificRegion(region)
+        .subscribe((c) => {
+          this.totalCountries = c.length;
+          this.countries = c;
+          return (this.countries$ = of(c));
+        });
+    }
+  }
 
   getAverageRGB(imgEl: any) {
     var blockSize = 5, // only visit every 5 pixels

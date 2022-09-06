@@ -1,6 +1,11 @@
 <div class="body">
   <div class="input-container">
-    <input type="text" placeholder="Input search terms" />
+    <input
+      #searchBox
+      type="text"
+      placeholder="Input search terms"
+      (input)="search(searchBox.value)"
+    />
     <button class="filter" (click)="showFilters()">
       <svg
         version="1.1"
@@ -30,10 +35,17 @@
       </svg>
     </button>
     <div class="filter-dialog" id="filter-dialog">
-      <input type="checkbox" name="region" />
-      <label for="region">Region</label>
+      <button mat-button [matMenuTriggerFor]="beforeMenu">Regions</button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="getRegions('All')">All</button>
+        <button mat-menu-item (click)="getRegions('africa')">Africa</button>
+        <button mat-menu-item (click)="getRegions('americas')">Americas</button>
+        <button mat-menu-item (click)="getRegions('asia')">Asia</button>
+        <button mat-menu-item (click)="getRegions('europe')">Europe</button>
+        <button mat-menu-item (click)="getRegions('oceania')">Oceania</button>
+      </mat-menu>
     </div>
-    <button class="search">
+    <button class="search" (click)="search(searchBox.value)">
       <svg
         version="1.1"
         id="Capa_1"
@@ -55,10 +67,11 @@
       </svg>
     </button>
   </div>
-  <div class="card-grid">
+  <div class="spinner" *ngIf="(countries$ | async)?.length == 0"></div>
+  <div class="card-grid" *ngIf="(countries$! | async)!.length > 0">
     <div
       class="card"
-      *ngFor="let country of countries"
+      *ngFor="let country of countries$ | async"
       routerLink="/countries/{{ country.name.common }}"
     >
       <img src="{{ country.flags.svg }}" />
@@ -71,19 +84,10 @@
       </span>
     </div>
   </div>
-  <div class="showing">
-    <b>Showing 45 of {{ countries.length }} countries</b>
-  </div>
-</div>
-
-<div class="side-menu-bg" id="side-menu-bg">
-  <div class="side-menu">
-    <div>Menu</div>
-    <button (click)="onCloseMenu()">
-      <img src="../../assets/img/x-svgrepo-com.svg" />
-    </button>
-    <span>Home</span>
-    <span>About</span>
-    <span>Contact</span>
+  <div class="showing" *ngIf="(countries$! | async)!.length > 0">
+    <b
+      >Showing {{ (countries$ | async)?.length }} of
+      {{ totalCountries }} countries</b
+    >
   </div>
 </div>

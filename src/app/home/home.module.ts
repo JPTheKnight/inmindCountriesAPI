@@ -10,6 +10,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { HttpClientModule } from '@angular/common/http';
 import { NFormatterPipe } from '../pipes/n-formatter.pipe';
 import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MaterialExampleModule } from 'src/material.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
     NgbModule,
     NgImageSliderModule,
     HttpClientModule,
+    MatNativeDateModule,
+    MaterialExampleModule,
+    ReactiveFormsModule,
   ],
   bootstrap: [HomeComponent],
 })

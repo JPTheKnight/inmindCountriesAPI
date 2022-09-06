@@ -48,7 +48,10 @@
       </svg>
     </div>-->
   </div>
-  <div class="info-container" id="info-container" *ngIf="country">
+  <div class="spinner-bg" *ngIf="country.length == 0">
+    <div class="spinner"></div>
+  </div>
+  <div class="info-container" id="info-container">
     <div class="up-arrow" id="info-up-arrow" (click)="showInfo()">
       <svg
         version="1.1"
@@ -87,11 +90,18 @@
         Capital: <span>{{ country[0].capital }}</span>
       </div>
       <div>
-        Languages: <span>{{ country[0].languages | arrayToString }}</span>
+        Languages: <span>{{ country[0].languages | arrayToString: 1 }}</span>
       </div>
-      <div>Currency: <span>Lebanese pound, ل.ل</span></div>
+      <div>
+        Currency: <span>{{ country[0].currencies | arrayToString: 2 }}</span>
+      </div>
     </div>
-    <div class="border-countries">See also: <a>Syr</a>, <a>Isr</a></div>
+    <div class="border-countries">
+      See also:
+      <a *ngFor="let c of country[0].borders" routerLink="/countries/{{ c }}"
+        >{{ c }}<span>, </span>
+      </a>
+    </div>
     <!-- <div class="countries-av" (click)="showCountries()">
       <img src="../../assets/img/1200px-Flag_of_Lebanon.svg.webp" />
       <div>United Kingdom</div>

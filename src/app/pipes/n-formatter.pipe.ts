@@ -4,8 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'nFormatter',
 })
 export class NFormatterPipe implements PipeTransform {
-  transform(value: number): unknown {
+  transform(value: number): string {
     var newValueStr: string = '';
+    if (value < 1000) newValueStr = value.toString();
     if (value >= 1000) {
       var suffixes: string[] = ['', 'k', 'm', 'b', 't'];
       var suffixNum: number = Math.floor(('' + value).length / 3);

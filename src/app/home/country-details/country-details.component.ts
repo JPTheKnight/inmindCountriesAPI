@@ -3,6 +3,7 @@ import { HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from 'src/app/countries.service';
 import { Country } from 'src/app/country';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-country-details',
@@ -12,24 +13,14 @@ import { Country } from 'src/app/country';
 export class CountryDetailsComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event?: Event) {
-    if (window.innerWidth < 1023) {
-      this.imageSize = { height: 400, width: 600 };
-    }
-    if (window.innerWidth < 640) {
-      this.imageSize = { height: 300, width: 500 };
-    }
-    if (window.innerWidth < 500) {
-      this.imageSize = { height: 300, width: 400 };
-    }
-    if (window.innerWidth < 380) {
-      this.imageSize = { height: 200, width: 300 };
-    }
+    this.Resize();
   }
 
   country: Country[] = [];
   infoContainer: boolean = false;
   imageSize: any = { height: 400, width: 600 };
-  imageStyle: any = 'width: 80%;';
+  bottom: number = 0;
+
   imageObject = [
     {
       image:
@@ -71,7 +62,8 @@ export class CountryDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private countriesServices: CountriesService
+    private countriesServices: CountriesService,
+    private router: Router
   ) {
     this.onResize();
   }
@@ -88,13 +80,21 @@ export class CountryDetailsComponent implements OnInit {
         countryDialog.style.display = 'none';
       }
     });
+
     this.countriesServices
-      .getCountry(this.route.snapshot.paramMap.get('name')!)
+      .getCountry(
+        this.route.snapshot.paramMap.get('name')!,
+        this.route.snapshot.paramMap.get('name')!.length == 3 ? 'alpha' : 'name'
+      )
       .subscribe((c) => (this.country = c));
 
-    setTimeout(() => {
-      console.log(this.country);
-    }, 3000);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    const infoDialog = document.getElementById('info-container');
+    if (infoDialog != null) {
+      this.Resize();
+      infoDialog.style.bottom = `${this.bottom}vh`;
+    }
   }
 
   showCountries() {
@@ -111,10 +111,29 @@ export class CountryDetailsComponent implements OnInit {
       this.infoContainer = true;
       return;
     } else if (infoDialog != null && upArrow != null && this.infoContainer) {
-      infoDialog.style.bottom = '-65vh';
+      infoDialog.style.bottom = `${this.bottom}vh`;
       upArrow.style.transform = 'rotate(0) translateX(-50%)';
       this.infoContainer = false;
       return;
+    }
+  }
+
+  Resize() {
+    if (window.innerWidth < 1023) {
+      this.imageSize = { height: 400, width: 600 };
+      this.bottom = -65;
+    }
+    if (window.innerWidth < 640) {
+      this.imageSize = { height: 300, width: 500 };
+      this.bottom = -55;
+    }
+    if (window.innerWidth < 500) {
+      this.imageSize = { height: 250, width: 350 };
+      this.bottom = -45;
+    }
+    if (window.innerWidth < 380) {
+      this.imageSize = { height: 200, width: 300 };
+      this.bottom = -50;
     }
   }
 }

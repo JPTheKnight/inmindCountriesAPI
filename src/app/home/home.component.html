@@ -1,5 +1,5 @@
 <nav>
-  <button>
+  <button (click)="onOpenMenu()">
     <img class="hamburger" src="../../assets/img/hamburger-svgrepo-com.svg" />
   </button>
   <div class="logo">
@@ -7,7 +7,7 @@
     <span><b>COUNTRIES API</b></span>
   </div>
   <ul>
-    <li>Home</li>
+    <li routerLink="/countries/">Home</li>
     <li>About</li>
     <li>Contact Us</li>
   </ul>
@@ -39,5 +39,17 @@
     </div>
   </div> -->
 </nav>
+
+<div class="side-menu-bg" id="side-menu-bg">
+  <div class="side-menu">
+    <div>Menu</div>
+    <button (click)="onCloseMenu()">
+      <img src="../../assets/img/x-svgrepo-com.svg" />
+    </button>
+    <span routerLink="/countries/">Home</span>
+    <span>About</span>
+    <span>Contact</span>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
