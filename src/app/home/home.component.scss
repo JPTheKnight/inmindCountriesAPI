@@ -1,0 +1,241 @@
+nav {
+  width: 100vw;
+  height: 70px;
+  position: relative;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  font-family: "BebasNeue", Arial, Helvetica, sans-serif;
+  user-select: none;
+  z-index: 9999;
+  padding-top: 0px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    .hamburger {
+      display: none;
+    }
+  }
+
+  .logo {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    img {
+      height: 50px;
+      width: 50px;
+      transform: rotate(20deg);
+      margin-right: 10px;
+    }
+    span {
+      font-style: normal;
+      font-size: 22px;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    margin-left: 50px;
+
+    li {
+      font-size: 22px;
+      color: #555555;
+      margin-right: 50px;
+      transition: all 0.3s;
+
+      &:hover {
+        cursor: pointer;
+        color: rgba(91, 91, 117, 0.678);
+      }
+    }
+  }
+
+  // .countries-av {
+  //   position: absolute;
+  //   height: 40px;
+  //   width: 200px;
+  //   top: 15px;
+  //   right: 20px;
+  //   border: 1px solid rgb(238, 238, 238);
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   align-items: center;
+  //   border-radius: 10px;
+
+  //   img {
+  //     height: 20px;
+  //     object-fit: contain;
+  //     margin-left: 10px;
+  //     margin-right: 10px;
+
+  //     &:last-child {
+  //       height: 10px;
+  //     }
+  //   }
+  //   div {
+  //     font-size: 1.1rem;
+  //     white-space: nowrap;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //   }
+
+  //   &:hover {
+  //     cursor: pointer;
+  //     border: 1px solid rgb(128, 128, 128);
+  //   }
+  // }
+  // .country-dialog {
+  //   display: none;
+  //   position: absolute;
+  //   grid-template-columns: 1;
+  //   flex-direction: column;
+  //   top: 60px;
+  //   right: 20px;
+  //   background-color: white;
+  //   height: fit-content;
+  //   padding: 10px 0;
+  //   width: 200px;
+  //   box-shadow: -2px 4px 4px 2px rgba(0, 0, 0, 0.25);
+  //   border-radius: 6px;
+  //   font-family: "BebasNeue", Arial, Helvetica, sans-serif;
+  //   -webkit-animation: scale-up-tr 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  //   animation: scale-up-tr 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+  //   .item {
+  //     display: flex;
+  //     align-items: center;
+  //     padding: 10px 10px;
+  //     //background-color: rgb(226, 226, 226);
+
+  //     img {
+  //       height: 25px;
+  //       object-fit: contain;
+  //       margin-right: 10px;
+
+  //       &:last-child {
+  //         height: 10px;
+  //       }
+  //     }
+
+  //     div {
+  //       font-size: 1rem;
+  //     }
+
+  //     &:hover {
+  //       cursor: pointer;
+  //       background-color: rgb(199, 199, 199);
+  //     }
+  //   }
+  // }
+}
+
+@media screen and (max-width: 800px) {
+  nav {
+    .countries-av {
+      width: 125px;
+
+      div {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 670px) {
+  nav {
+    position: relative;
+    button {
+      .hamburger {
+        display: block;
+        height: 30px;
+        width: 30px;
+        margin-left: 20px;
+      }
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+
+      img {
+        height: 40px;
+        width: 40px;
+      }
+      span {
+        font-size: 18px;
+      }
+    }
+    ul {
+      display: none;
+    }
+    .countries-av {
+      width: 85px;
+
+      img {
+        height: 20px;
+        object-fit: contain;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        &:last-child {
+          height: 10px;
+        }
+      }
+      div {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  nav {
+    .countries-av {
+      width: 50px;
+      height: 30px;
+      top: 20px;
+
+      img {
+        height: 20px;
+        object-fit: contain;
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  nav {
+    .logo {
+      height: 40px;
+      width: 130px;
+
+      span {
+        font-size: 1rem;
+      }
+    }
+    .countries-av {
+      width: 40px;
+      height: 20px;
+      top: 25px;
+
+      img {
+        height: 15px;
+        object-fit: contain;
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+  }
+}

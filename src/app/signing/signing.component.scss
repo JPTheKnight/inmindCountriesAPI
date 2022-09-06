@@ -1,0 +1,126 @@
+.main {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  .bg {
+    width: 80%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 450px;
+    max-height: 700px;
+
+    box-shadow: -2px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    background: linear-gradient(180deg, #0e395c 0%, rgba(7, 49, 87, 0) 100%),
+      linear-gradient(0deg, #ffffff, #ffffff);
+
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+
+    font-family: "ArvoRegular", Arial, sans-serif;
+
+    .world-map {
+      height: 100%;
+      width: 35%;
+      object-fit: cover;
+    }
+    .white-bg {
+      height: 96%;
+      width: 64%;
+      background-color: white;
+      z-index: 2;
+      margin: auto 0;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      overflow-y: scroll;
+    }
+
+    .white-bg::-webkit-scrollbar {
+      width: 5px;
+    }
+    .white-bg::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0);
+    }
+    .white-bg::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 73, 141, 0.726);
+      border-radius: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .main {
+    .bg {
+      .white-bg {
+        width: 63%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .main {
+    .bg {
+      .white-bg {
+        width: 63%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 670px) {
+  .main {
+    background-image: url("../../assets/img/countries-map-world-world-map-wallpaper-preview.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .bg {
+      width: 90vw;
+      img {
+        display: none;
+      }
+      .white-bg {
+        width: 95%;
+        margin: auto auto;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .main {
+    .bg {
+      width: 80vw;
+      .white-bg {
+        width: 95%;
+        margin: auto auto;
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 420px) {
+  .main {
+    .bg {
+      width: 80vw;
+      .white-bg {
+        width: 95%;
+        margin: auto auto;
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 360px) {
+  .main {
+    .bg {
+      width: 90vw;
+      .white-bg {
+        width: 94%;
+        margin: auto auto;
+      }
+    }
+  }
+}
