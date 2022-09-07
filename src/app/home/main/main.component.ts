@@ -43,9 +43,14 @@ export class MainComponent implements OnInit {
 
     this.searchTerms
       .pipe(
-        debounceTime(300),
         distinctUntilChanged(),
-        switchMap((term: string) => this.countriesService.searchCountries(term))
+        switchMap((term: string) =>
+          /*this.countriesService.searchCountries(term)*/ of(
+            this.countries.filter((obj) =>
+              obj.name.common.toLowerCase().includes(term.toLowerCase())
+            )
+          )
+        )
       )
       .subscribe((data) => (this.countries$ = of(data)));
   }

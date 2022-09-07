@@ -1,6 +1,7 @@
 .components {
   margin-top: 25px;
   margin-left: 35px;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -71,6 +72,11 @@
     &:hover {
       cursor: pointer;
       opacity: 0.8;
+    }
+
+    &:disabled {
+      cursor: unset;
+      opacity: 0.7;
     }
   }
 

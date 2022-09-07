@@ -17,9 +17,10 @@ export class CountryDetailsComponent implements OnInit {
   }
 
   country: Country[] = [];
-  infoContainer: boolean = false;
+  isInfoContainerUp: boolean = false;
   imageSize: any = { height: 400, width: 600 };
   bottom: number = 0;
+  isEditing: boolean = false;
 
   imageObject = [
     {
@@ -105,15 +106,19 @@ export class CountryDetailsComponent implements OnInit {
   showInfo() {
     const infoDialog = document.getElementById('info-container');
     const upArrow = document.getElementById('info-up-arrow');
-    if (infoDialog != null && upArrow != null && !this.infoContainer) {
+    if (infoDialog != null && upArrow != null && !this.isInfoContainerUp) {
       infoDialog.style.bottom = '0';
       upArrow.style.transform = 'rotate(180deg) translateX(50%)';
-      this.infoContainer = true;
+      this.isInfoContainerUp = true;
       return;
-    } else if (infoDialog != null && upArrow != null && this.infoContainer) {
+    } else if (
+      infoDialog != null &&
+      upArrow != null &&
+      this.isInfoContainerUp
+    ) {
       infoDialog.style.bottom = `${this.bottom}vh`;
       upArrow.style.transform = 'rotate(0) translateX(-50%)';
-      this.infoContainer = false;
+      this.isInfoContainerUp = false;
       return;
     }
   }
@@ -136,4 +141,20 @@ export class CountryDetailsComponent implements OnInit {
       this.bottom = -50;
     }
   }
+
+  imageClick() {
+    const images = document.getElementById('images');
+    if (images != null) {
+      images.style.zIndex = '999999';
+    }
+  }
+
+  lightboxClose() {
+    const images = document.getElementById('images');
+    if (images != null) {
+      images.style.zIndex = '999';
+    }
+  }
+
+  edit() {}
 }

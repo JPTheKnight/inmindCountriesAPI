@@ -1,28 +1,93 @@
-<form class="components">
+<form class="components" [formGroup]="regForm" (onSubmit)="onSubmitForm()">
   <div class="title">
     <b>Register new Account</b>
   </div>
   <div class="input-container">
     <label for="firstName">First Name</label>
-    <input name="firstName" type="text" placeholder="Enter your first name" />
+    <input
+      name="firstName"
+      type="text"
+      placeholder="Enter your first name"
+      formControlName="fnInput"
+    />
+    <p
+      *ngIf="getFn && getFn.invalid && getFn.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      This input is required.
+    </p>
   </div>
   <div class="input-container">
     <label for="lastName">Last Name</label>
-    <input name="lastName" type="type" placeholder="Enter your last name" />
+    <input
+      name="lastName"
+      type="type"
+      placeholder="Enter your last name"
+      formControlName="lnInput"
+    />
+    <p
+      *ngIf="getLn && getLn.invalid && getLn.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      This input is required.
+    </p>
   </div>
   <div class="input-container">
     <label for="email">Email Address</label>
-    <input name="email" type="email" placeholder="Enter your email" />
+    <input
+      name="email"
+      type="email"
+      placeholder="Enter your email"
+      formControlName="emailInput"
+    />
+    <p
+      *ngIf="getEmail && getEmail.invalid && getEmail.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Email is invalid.
+    </p>
   </div>
   <div class="input-container">
-    <label for="email">Password</label>
-    <input name="email" type="password" />
+    <label for="password">Password</label>
+    <input name="password" type="password" formControlName="passwordInput" />
+    <p
+      *ngIf="getPassword && getPassword.invalid && getPassword.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Password of minimum 8 characters is required.
+    </p>
+  </div>
+  <div class="input-container">
+    <label for="rePassword">Confirm Password</label>
+    <input
+      name="rePassword"
+      type="password"
+      formControlName="rePasswordInput"
+    />
+    <p
+      *ngIf="
+        getRePassword && getRePassword.errors?.required && getRePassword.touched
+      "
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Input is required.
+    </p>
+    <p
+      *ngIf="
+        getRePassword &&
+        getRePassword.touched &&
+        getRePassword.errors?.confirmedValidator
+      "
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Passwords don't match.
+    </p>
   </div>
   <div class="checkbox-container">
     <input type="checkbox" name="admin" />
     <label for="admin">Is Admin</label>
   </div>
-  <button type="submit"><b>Register</b></button>
+  <button type="submit" [disabled]="regForm.invalid"><b>Register</b></button>
   <div class="signin">
     <i>Already have an account? </i>
     <a routerLink="/login"><b> Sign In</b></a>

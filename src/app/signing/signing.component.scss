@@ -1,7 +1,7 @@
 .main {
   height: 100%;
   overflow: hidden;
-  width: 100%;
+
   .bg {
     width: 80%;
     height: 90%;
@@ -18,7 +18,7 @@
       linear-gradient(0deg, #ffffff, #ffffff);
 
     border-radius: 6px;
-    overflow: hidden;
+    //overflow: hidden;
     display: flex;
 
     font-family: "ArvoRegular", Arial, sans-serif;
@@ -36,7 +36,7 @@
       margin: auto 0;
       border-bottom-right-radius: 6px;
       border-top-right-radius: 6px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
     .white-bg::-webkit-scrollbar {

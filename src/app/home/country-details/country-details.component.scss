@@ -69,6 +69,23 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
 
+    .edit-button {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      svg {
+        height: 20px;
+        width: 20px;
+      }
+
+      &:hover {
+        svg {
+          fill: rgb(0, 119, 255);
+        }
+        cursor: pointer;
+      }
+    }
+
     .up-arrow {
       display: none;
     }
@@ -126,7 +143,7 @@
     align-items: center;
     background-color: rgb(58, 58, 58);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    z-index: 999;
+    z-index: 9999;
 
     #carousel {
       width: 80%;
@@ -244,6 +261,16 @@
       transition: all 0.5s;
       overflow-y: scroll;
 
+      .edit-button {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        svg {
+          height: 40px;
+          width: 40px;
+        }
+      }
+
       .up-arrow {
         display: block;
         position: absolute;
@@ -308,6 +335,16 @@
         font-size: 1.1rem;
       }
 
+      .edit-button {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        svg {
+          height: 30px;
+          width: 30px;
+        }
+      }
+
       .title {
         font-size: 1.7rem;
       }
@@ -327,6 +364,16 @@
       .info {
         width: fit-content;
         font-size: 0.9rem;
+      }
+
+      .edit-button {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        svg {
+          height: 25px;
+          width: 25px;
+        }
       }
 
       .title {

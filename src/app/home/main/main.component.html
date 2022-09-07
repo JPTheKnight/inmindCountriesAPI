@@ -35,7 +35,12 @@
       </svg>
     </button>
     <div class="filter-dialog" id="filter-dialog">
-      <button mat-button [matMenuTriggerFor]="beforeMenu">Regions</button>
+      <button mat-button [matMenuTriggerFor]="beforeMenu">
+        <img
+          src="../../../assets/img/down-arrow-svgrepo-com.svg"
+          style="height: 10px; width: 10px; margin-right: 10px"
+        />Regions
+      </button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
         <button mat-menu-item (click)="getRegions('All')">All</button>
         <button mat-menu-item (click)="getRegions('africa')">Africa</button>

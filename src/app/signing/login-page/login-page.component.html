@@ -1,20 +1,37 @@
-<form class="components">
+<form class="components" [formGroup]="loginForm" (onSubmit)="onSubmitForm()">
   <div class="title">
     <b>Login into your Account</b>
   </div>
   <div class="input-container">
     <label for="email">Email Address</label>
-    <input name="email" type="email" placeholder="Enter your email" />
+    <input
+      name="email"
+      type="email"
+      placeholder="Enter your email"
+      formControlName="emailInput"
+    />
+    <p
+      *ngIf="getEmail && getEmail.invalid && getEmail.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Email is invalid.
+    </p>
   </div>
   <div class="input-container">
-    <label for="email">Password</label>
-    <input name="email" type="password" />
+    <label for="password">Password</label>
+    <input name="password" type="password" formControlName="passwordInput" />
+    <p
+      *ngIf="getPassword && getPassword.invalid && getPassword.touched"
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Password of minimum 8 characters is required.
+    </p>
   </div>
   <div class="checkbox-container">
     <input type="checkbox" name="remember" />
     <label for="remember">Remember me</label>
   </div>
-  <button type="submit"><b>Sign in</b></button>
+  <button type="submit" [disabled]="loginForm.invalid"><b>Sign in</b></button>
   <div class="signup">
     <i>Don't have an account? </i>
     <a routerLink="/register"><b> Sign Up</b></a>
