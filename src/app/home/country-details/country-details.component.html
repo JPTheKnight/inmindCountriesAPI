@@ -82,7 +82,7 @@
         </g>
       </svg>
     </div>
-    <div class="save-button edit-button" *ngIf="isEditing">
+    <div class="save-button edit-button" *ngIf="isEditing" (click)="save()">
       <svg
         version="1.1"
         id="Capa_1"
@@ -146,29 +146,60 @@
     </div>
     <div class="info">
       <div>
-        Region: <span>{{ country[0].region }}</span>
+        Region: <span *ngIf="!isEditing">{{ country[0].region }}</span>
+        <span class="user-input" *ngIf="isEditing"
+          ><input type="text" #info_region [value]="country[0].region"
+        /></span>
       </div>
       <div>
-        Population: <span>{{ country[0].population | number }}</span>
+        Population:
+        <span *ngIf="!isEditing">{{ country[0].population | number }}</span
+        ><span class="user-input" *ngIf="isEditing"
+          ><input type="text" #info_population [value]="country[0].population"
+        /></span>
       </div>
       <div>
-        Area: <span>{{ country[0].area | number }} km²</span>
+        Area: <span *ngIf="!isEditing">{{ country[0].area | number }} km²</span
+        ><span class="user-input" *ngIf="isEditing"
+          ><input type="text" #info_area [value]="country[0].area"
+        /></span>
       </div>
       <div>
-        Capital: <span>{{ country[0].capital }}</span>
+        Capital: <span *ngIf="!isEditing">{{ country[0].capital }}</span
+        ><span class="user-input" *ngIf="isEditing"
+          ><input type="text" #info_capital [value]="country[0].capital"
+        /></span>
       </div>
       <div>
-        Languages: <span>{{ country[0].languages | arrayToString: 1 }}</span>
+        Languages:
+        <span *ngIf="!isEditing">{{
+          country[0].languages | arrayToString: 1
+        }}</span
+        ><span class="user-input" *ngIf="isEditing"
+          ><input
+            type="text"
+            #info_languages
+            [value]="toJson(country[0].languages)"
+        /></span>
       </div>
       <div>
-        Currency: <span>{{ country[0].currencies | arrayToString: 2 }}</span>
+        Currency:
+        <span *ngIf="!isEditing">{{
+          country[0].currencies | arrayToString: 2
+        }}</span
+        ><span class="user-input" *ngIf="isEditing"
+          ><input
+            type="text"
+            #info_currency
+            [value]="toJson(country[0].currencies)"
+        /></span>
       </div>
-    </div>
-    <div class="border-countries">
-      See also:
-      <a *ngFor="let c of country[0].borders" routerLink="/countries/{{ c }}"
-        >{{ c }}<span>, </span>
-      </a>
+      <div class="border-countries">
+        See also:
+        <a *ngFor="let c of country[0].borders" routerLink="/countries/{{ c }}"
+          >{{ c }}<span>, </span>
+        </a>
+      </div>
     </div>
     <!-- <div class="countries-av" (click)="showCountries()">
       <img src="../../assets/img/1200px-Flag_of_Lebanon.svg.webp" />

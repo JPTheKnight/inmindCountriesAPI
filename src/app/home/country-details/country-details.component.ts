@@ -19,7 +19,6 @@ export class CountryDetailsComponent implements OnInit {
   country: Country[] = [];
   isInfoContainerUp: boolean = false;
   imageSize: any = { height: 400, width: 600 };
-  bottom: number = 0;
   isEditing: boolean = false;
 
   imageObject = [
@@ -94,7 +93,6 @@ export class CountryDetailsComponent implements OnInit {
     const infoDialog = document.getElementById('info-container');
     if (infoDialog != null) {
       this.Resize();
-      infoDialog.style.bottom = `${this.bottom}vh`;
     }
   }
 
@@ -107,7 +105,7 @@ export class CountryDetailsComponent implements OnInit {
     const infoDialog = document.getElementById('info-container');
     const upArrow = document.getElementById('info-up-arrow');
     if (infoDialog != null && upArrow != null && !this.isInfoContainerUp) {
-      infoDialog.style.bottom = '0';
+      //infoDialog.style.bottom = '0';
       upArrow.style.transform = 'rotate(180deg) translateX(50%)';
       this.isInfoContainerUp = true;
       return;
@@ -116,7 +114,7 @@ export class CountryDetailsComponent implements OnInit {
       upArrow != null &&
       this.isInfoContainerUp
     ) {
-      infoDialog.style.bottom = `${this.bottom}vh`;
+      //infoDialog.style.bottom = `${this.bottom}px`;
       upArrow.style.transform = 'rotate(0) translateX(-50%)';
       this.isInfoContainerUp = false;
       return;
@@ -124,21 +122,20 @@ export class CountryDetailsComponent implements OnInit {
   }
 
   Resize() {
+    if (window.innerWidth > 1023 && window.innerHeight < 600) {
+      this.imageSize = { height: 300, width: 500 };
+    }
     if (window.innerWidth < 1023) {
       this.imageSize = { height: 400, width: 600 };
-      this.bottom = -65;
     }
     if (window.innerWidth < 640) {
       this.imageSize = { height: 300, width: 500 };
-      this.bottom = -55;
     }
     if (window.innerWidth < 500) {
       this.imageSize = { height: 250, width: 350 };
-      this.bottom = -45;
     }
     if (window.innerWidth < 380) {
       this.imageSize = { height: 200, width: 300 };
-      this.bottom = -50;
     }
   }
 
@@ -156,5 +153,15 @@ export class CountryDetailsComponent implements OnInit {
     }
   }
 
-  edit() {}
+  edit() {
+    this.isEditing = true;
+  }
+
+  save() {
+    this.isEditing = false;
+  }
+
+  toJson(data: any) {
+    return JSON.stringify(data);
+  }
 }

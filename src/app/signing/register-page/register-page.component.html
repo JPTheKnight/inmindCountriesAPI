@@ -75,6 +75,18 @@
     <p
       *ngIf="
         getRePassword &&
+        getRePassword.invalid &&
+        getRePassword.touched &&
+        !getRePassword.errors?.confirmedValidator &&
+        !getRePassword.errors?.required
+      "
+      style="color: red; margin-top: 3px; width: 90%"
+    >
+      Password of minimum 8 characters is required.
+    </p>
+    <p
+      *ngIf="
+        getRePassword &&
         getRePassword.touched &&
         getRePassword.errors?.confirmedValidator
       "

@@ -55,6 +55,19 @@
     }
   }
 
+  .info-container::-webkit-scrollbar {
+    width: 2px;
+  }
+  .info-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .info-container::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 75, 75, 0.726);
+    border-radius: 5px;
+  }
+
   .info-container {
     margin-top: -80px;
     display: flex;
@@ -68,6 +81,8 @@
     border-bottom-right-radius: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
     .edit-button {
       position: absolute;
@@ -101,6 +116,37 @@
         span {
           color: #757575;
         }
+        .user-input {
+          margin-left: 10px;
+          input {
+            height: 20px;
+            width: 175px;
+            padding: 5px;
+            margin: 0;
+          }
+        }
+      }
+      .border-countries {
+        margin-top: 20px;
+        width: 30vw;
+        padding-bottom: 20px;
+        a {
+          color: rgb(50, 146, 255);
+          text-decoration: none;
+
+          span {
+            color: rgb(90, 90, 90);
+          }
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:last-child {
+            span {
+              display: none;
+            }
+          }
+        }
       }
     }
 
@@ -110,27 +156,6 @@
       color: black;
       width: 300px;
       line-height: 30px;
-    }
-
-    .border-countries {
-      width: 20vw;
-      a {
-        color: rgb(50, 146, 255);
-        text-decoration: none;
-
-        span {
-          color: rgb(90, 90, 90);
-        }
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:last-child {
-          span {
-            display: none;
-          }
-        }
-      }
     }
   }
 
@@ -146,7 +171,7 @@
     z-index: 9999;
 
     #carousel {
-      width: 80%;
+      width: 95%;
     }
 
     /*.image-gallery {
@@ -219,171 +244,67 @@
 }
 
 @media screen and (max-width: 1023px) {
+  .body::-webkit-scrollbar {
+    width: 0;
+  }
+
   .body {
-    height: calc(100vh - 50px);
+    height: 100vh;
     width: 100vw;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: unset;
-    margin: 50px auto;
-    position: relative;
+    overflow-y: scroll;
+    display: block;
 
-    .images {
-      height: 80vh;
-      width: 100vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      margin-top: -50px;
-
-      #carousel {
-        height: 70%;
-        width: 90%;
-      }
-    }
     .info-container {
-      display: flex;
-      justify-content: center;
-      position: absolute;
-      bottom: -65vh;
-      z-index: 9999;
-      align-items: left;
+      height: fit-content;
       width: 100vw;
-      height: 90vh;
-      padding: 20px;
-      border-top-right-radius: 15px;
+      border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-      border-top-left-radius: 15px;
       margin-top: 0;
-      margin-bottom: 30px;
-      transition: all 0.5s;
-      overflow-y: scroll;
-
-      .edit-button {
-        position: absolute;
-        top: 40px;
-        right: 40px;
-        svg {
-          height: 40px;
-          width: 40px;
-        }
-      }
-
-      .up-arrow {
-        display: block;
-        position: absolute;
-        top: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 5px 7px;
-        border-radius: 50%;
-        transition: all 0.5s;
-
-        &:hover {
-          cursor: pointer;
-          background-color: #a5a5a5;
-
-          svg {
-            fill: white;
-          }
-        }
-
-        svg {
-          height: 25px;
-          width: 25px;
-        }
-      }
+      overflow-y: unset;
+      min-height: 550px;
 
       .info {
-        width: fit-content;
-        font-size: 1.5rem;
-        height: 50vh;
-        margin-left: 30px;
-        margin-right: 20px;
-        line-height: 30px;
+        .border-countries {
+          width: 90vw;
+        }
       }
-
       .title {
-        font-size: 2.3rem;
-        margin-left: 30px;
-        margin-right: 20px;
         width: 80vw;
       }
+    }
 
-      .border-countries {
-        margin-left: 30px;
-        margin-right: 20px;
-        font-size: 1.5rem;
-        width: 90%;
-        line-height: 30px;
-      }
-
-      .countries-av {
-        position: relative;
+    .images {
+      width: 100vw;
+      align-items: unset;
+      margin-top: 0;
+      height: fit-content;
+      #carousel {
+        z-index: 99999;
+        margin-top: 30px;
+        padding-bottom: 30px;
       }
     }
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
   .body {
     .info-container {
-      .info {
-        width: fit-content;
-        font-size: 1.1rem;
-      }
-
-      .edit-button {
-        position: absolute;
-        top: 30px;
-        right: 40px;
-        svg {
-          height: 30px;
-          width: 30px;
-        }
-      }
-
-      .title {
-        font-size: 1.7rem;
-      }
-
-      .border-countries {
-        margin-left: 30px;
-        font-size: 1.2rem;
-        width: 90%;
-      }
+      padding-left: 30px;
     }
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 400px) {
   .body {
     .info-container {
       .info {
-        width: fit-content;
-        font-size: 0.9rem;
-      }
-
-      .edit-button {
-        position: absolute;
-        top: 30px;
-        right: 30px;
-        svg {
-          height: 25px;
-          width: 25px;
-        }
-      }
-
-      .title {
-        font-size: 1.5rem;
-      }
-
-      .border-countries {
-        margin-left: 30px;
         font-size: 1rem;
-        width: 90%;
+      }
+      .title {
+        font-size: 1.2rem;
+        width: 70vw;
       }
     }
   }
