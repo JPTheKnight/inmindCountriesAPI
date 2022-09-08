@@ -1,0 +1,68 @@
+<div class="body">
+  <div class="white-bg">
+    <div class="title">Edit {{ country.name.common | titlecase }}'s info:</div>
+    <table class="info-container">
+      <tr>
+        <td class="info-name">Region:</td>
+        <td class="info-data">
+          <select [value]="country.region">
+            <option value="Africa">Africa</option>
+            <option value="Americas">Americas</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="Oceania">Oceania</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="info-name">Population:</td>
+        <td class="info-data">
+          <input type="number" [value]="country.population" />
+        </td>
+      </tr>
+      <tr>
+        <td class="info-name">Area:</td>
+        <td class="info-data">
+          <input type="number" [value]="country.area" />
+        </td>
+        <td class="info-name">&nbsp;&nbsp;km²</td>
+      </tr>
+      <tr>
+        <td class="info-name">Capital:</td>
+        <td class="info-data">
+          <input type="text" [value]="country.capital" />
+        </td>
+      </tr>
+      <tr>
+        <td class="info-name">Languages:</td>
+        <td class="info-data">
+          <div class="double multiple">
+            <span *ngFor="let obj of country.languages | keyvalue"
+              ><input type="text" [value]="obj.key" /><input
+                type="text"
+                [value]="obj.value" /><img
+                src="../../../assets/img/x-svgrepo-com.svg"
+                (click)="addSection($event, 0)"
+            /></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="info-name">Currencies:</td>
+        <td class="info-data">
+          <div class="triple multiple">
+            <span *ngFor="let obj of country.currencies | keyvalue"
+              ><input type="text" [value]="obj.key" />
+              <input type="text" [value]="getObjSymbol(obj)" />
+              <input type="text" [value]="getObjName(obj)" /><img
+                src="../../../assets/img/x-svgrepo-com.svg"
+            /></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <button type="submit"><b>Save</b></button>
+    <button class="cancel" type="submit"><b>Cancel</b></button>
+  </div>
+</div>

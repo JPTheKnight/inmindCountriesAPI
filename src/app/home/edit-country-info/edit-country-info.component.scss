@@ -1,0 +1,166 @@
+.body {
+  height: calc(100vh - 70px);
+  width: 100vw;
+  position: relative;
+
+  .white-bg::-webkit-scrollbar {
+    width: 5px;
+  }
+  .white-bg::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .white-bg::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 75, 75, 0.726);
+    border-radius: 5px;
+  }
+
+  .white-bg {
+    height: 80vh;
+    position: absolute;
+    width: 95vw;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    font-family: "ArvoRegular", Arial, Helvetica, sans-serif;
+
+    .title {
+      font-size: 2rem;
+      padding: 30px;
+    }
+
+    button {
+      width: 140.3px;
+      height: 38.78px;
+
+      background: #66beff;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 13px;
+      font-family: "ArvoRegular", Arial, sans-serif;
+      color: white;
+      border: none;
+      margin-left: 30px;
+      margin-bottom: 50px;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+
+      &:disabled {
+        cursor: unset;
+        opacity: 0.7;
+      }
+    }
+
+    .cancel {
+      background: #ff6666;
+    }
+
+    .info-container {
+      padding-left: 30px;
+      width: fit-content;
+      padding-bottom: 50px;
+
+      .info-name {
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.3rem;
+        span {
+          padding-bottom: 30px;
+        }
+      }
+      .info-data {
+        padding-top: 25px;
+
+        select,
+        input {
+          height: 30px;
+          width: 300px;
+          font-size: 1.1rem;
+          margin-left: 20px;
+          padding-left: 10px;
+          border-radius: 5px;
+          border: none;
+          background-color: rgb(226, 226, 226);
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .multiple {
+          display: flex;
+          flex-direction: column;
+          margin-top: -10px;
+
+          span {
+            position: relative;
+            select,
+            input {
+              margin-top: 10px;
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            &:first-child {
+              img {
+                transform: rotate(45deg);
+                height: 20px;
+                width: 20px;
+                top: 15px;
+                right: -28px;
+              }
+            }
+
+            img {
+              position: absolute;
+              right: -30px;
+              top: 12px;
+              height: 25px;
+              width: 25px;
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        .double {
+          select,
+          input {
+            width: 220px;
+            &:first-child {
+              width: 60px;
+            }
+          }
+        }
+
+        .triple {
+          select,
+          input {
+            width: 150px;
+            &:first-child {
+              width: 60px;
+            }
+            &:nth-child(2) {
+              width: 50px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

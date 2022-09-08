@@ -153,14 +153,6 @@ export class CountryDetailsComponent implements OnInit {
     }
   }
 
-  edit() {
-    this.isEditing = true;
-  }
-
-  save() {
-    this.isEditing = false;
-  }
-
   toJson(data: any) {
     return JSON.stringify(data);
   }

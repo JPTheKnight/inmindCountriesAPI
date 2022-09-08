@@ -8,11 +8,13 @@ import { CountryDetailsComponent } from './country-details/country-details.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { NFormatterPipe } from '../pipes/n-formatter.pipe';
 import { ArrayToStringPipe } from '../pipes/array-to-string.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from 'src/material.module';
+import { EditCountryInfoComponent } from './edit-country-info/edit-country-info.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { MaterialExampleModule } from 'src/material.module';
     CountryDetailsComponent,
     NFormatterPipe,
     ArrayToStringPipe,
+    EditCountryInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { MaterialExampleModule } from 'src/material.module';
     NgbModule,
     NgImageSliderModule,
     HttpClientModule,
+    FormsModule,
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,

@@ -27,12 +27,12 @@ export class CountriesService {
     return this.http.get<Country[]>(this.mainUrl + 'region/' + region);
   }
 
-  searchCountries(term: string): Observable<Country[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
-    return this.http.get<Country[]>(
-      this.mainUrl + 'name/' + term + '?fulltext=true'
-    );
-  }
+  // searchCountries(term: string): Observable<Country[]> {
+  //   if (!term.trim()) {
+  //     return of([]);
+  //   }
+  //   return this.http.get<Country[]>(
+  //     this.mainUrl + 'name/' + term + '?fulltext=true'
+  //   );
+  // }
 }
