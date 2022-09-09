@@ -56,7 +56,7 @@
   <div class="info-container" id="info-container">
     <div
       class="edit-button"
-      routerLink="/countries/{{ country[0].name.common }}/edit"
+      routerLink="/countries/{{ country[0]?.name?.common }}/edit"
     >
       <svg
         version="1.1"
@@ -107,33 +107,33 @@
       </svg>
     </div>
     <div class="title">
-      <b>About {{ country[0].name.common }}:</b>
+      <b>About {{ country[0]?.name?.common }}:</b>
     </div>
     <div class="info">
       <div>
-        Region: <span>{{ country[0].region }}</span>
+        Region: <span>{{ country[0]?.region }}</span>
       </div>
       <div>
         Population:
-        <span>{{ country[0].population | number }}</span>
+        <span>{{ country[0]?.population | number }}</span>
       </div>
       <div>
-        Area: <span>{{ country[0].area | number }} km²</span>
+        Area: <span>{{ country[0]?.area | number }} km²</span>
       </div>
       <div>
-        Capital: <span>{{ country[0].capital }}</span>
+        Capital: <span>{{ country[0]?.capital }}</span>
       </div>
       <div>
         Languages:
-        <span>{{ country[0].languages | arrayToString: 1 }}</span>
+        <span>{{ country[0]?.languages | arrayToString: 1 }}</span>
       </div>
       <div>
         Currency:
-        <span>{{ country[0].currencies | arrayToString: 2 }}</span>
+        <span>{{ country[0]?.currencies | arrayToString: 2 }}</span>
       </div>
       <div class="border-countries">
         See also:
-        <a *ngFor="let c of country[0].borders" routerLink="/countries/{{ c }}"
+        <a *ngFor="let c of country[0]?.borders" routerLink="/countries/{{ c }}"
           >{{ c }}<span>, </span>
         </a>
       </div>

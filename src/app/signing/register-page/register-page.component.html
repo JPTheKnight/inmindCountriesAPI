@@ -8,7 +8,7 @@
       name="firstName"
       type="text"
       placeholder="Enter your first name"
-      formControlName="fnInput"
+      formControlName="FirstName"
     />
     <p
       *ngIf="getFn && getFn.invalid && getFn.touched"
@@ -23,7 +23,7 @@
       name="lastName"
       type="type"
       placeholder="Enter your last name"
-      formControlName="lnInput"
+      formControlName="LastName"
     />
     <p
       *ngIf="getLn && getLn.invalid && getLn.touched"
@@ -38,7 +38,7 @@
       name="email"
       type="email"
       placeholder="Enter your email"
-      formControlName="emailInput"
+      formControlName="Email"
     />
     <p
       *ngIf="getEmail && getEmail.invalid && getEmail.touched"
@@ -49,7 +49,7 @@
   </div>
   <div class="input-container">
     <label for="password">Password</label>
-    <input name="password" type="password" formControlName="passwordInput" />
+    <input name="password" type="password" formControlName="Password" />
     <p
       *ngIf="getPassword && getPassword.invalid && getPassword.touched"
       style="color: red; margin-top: 3px; width: 90%"
@@ -59,11 +59,7 @@
   </div>
   <div class="input-container">
     <label for="rePassword">Confirm Password</label>
-    <input
-      name="rePassword"
-      type="password"
-      formControlName="rePasswordInput"
-    />
+    <input name="rePassword" type="password" formControlName="rePassword" />
     <p
       *ngIf="
         getRePassword && getRePassword.errors?.required && getRePassword.touched
@@ -96,10 +92,12 @@
     </p>
   </div>
   <div class="checkbox-container">
-    <input type="checkbox" name="admin" />
+    <input type="checkbox" name="admin" [value]="false" [(ngModel)]="isAdmin" />
     <label for="admin">Is Admin</label>
   </div>
-  <button type="submit" [disabled]="regForm.invalid"><b>Register</b></button>
+  <button type="submit" [disabled]="regForm.invalid" (click)="register()">
+    <b>Register</b>
+  </button>
   <div class="signin">
     <i>Already have an account? </i>
     <a routerLink="/login"><b> Sign In</b></a>

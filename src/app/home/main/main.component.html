@@ -43,11 +43,13 @@
       </button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
         <button mat-menu-item (click)="getRegions('All')">All</button>
-        <button mat-menu-item (click)="getRegions('africa')">Africa</button>
-        <button mat-menu-item (click)="getRegions('americas')">Americas</button>
-        <button mat-menu-item (click)="getRegions('asia')">Asia</button>
-        <button mat-menu-item (click)="getRegions('europe')">Europe</button>
-        <button mat-menu-item (click)="getRegions('oceania')">Oceania</button>
+        <button
+          mat-menu-item
+          *ngFor="let region of availableRegions"
+          (click)="getRegions(region)"
+        >
+          {{ region | titlecase }}
+        </button>
       </mat-menu>
     </div>
     <button class="search" (click)="search(searchBox.value)">

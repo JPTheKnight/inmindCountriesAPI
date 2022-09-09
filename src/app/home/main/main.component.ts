@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
   countries$: Observable<Country[]> = of([]);
   private searchTerms = new Subject<string>();
   totalCountries: number = 0;
+  availableRegions?: Array<string> = [];
 
   ngOnInit(): void {
     const filterDialog = document.getElementById(
@@ -38,12 +39,14 @@ export class MainComponent implements OnInit {
     this.countriesService.getAllCountries().subscribe((c) => {
       this.totalCountries = c.length;
       this.countries = c;
+      this.availableRegions = [
+        ...new Set(this.countries.map((region) => region.region)),
+      ];
       return (this.countries$ = of(c));
     });
 
     this.searchTerms
       .pipe(
-        distinctUntilChanged(),
         switchMap((term: string) =>
           /*this.countriesService.searchCountries(term)*/ of(
             this.countries.filter((obj) =>

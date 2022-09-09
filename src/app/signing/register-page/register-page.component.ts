@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { Registration } from 'src/app/user';
 
 @Component({
   selector: 'app-register-page',
@@ -7,49 +9,52 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements OnInit {
+  registerUser!: Registration;
+  isAdmin!: boolean;
+
   regForm = this.fb.group(
     {
-      fnInput: ['', [Validators.required, Validators.maxLength(32)]],
-      lnInput: ['', [Validators.required, Validators.maxLength(32)]],
-      emailInput: [
+      FirstName: ['', [Validators.required, Validators.maxLength(32)]],
+      LastName: ['', [Validators.required, Validators.maxLength(32)]],
+      Email: [
         '',
         [
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
         ],
       ],
-      passwordInput: ['', [Validators.required, Validators.minLength(8)]],
-      rePasswordInput: ['', [Validators.required, Validators.minLength(8)]],
+      Password: ['', [Validators.required, Validators.minLength(8)]],
+      rePassword: ['', [Validators.required, Validators.minLength(8)]],
     },
     {
-      validator: this.ConfirmedValidator('passwordInput', 'rePasswordInput'),
+      validator: this.ConfirmedValidator('Password', 'rePassword'),
     }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private auth: AuthenticationService) {}
 
   ngOnInit(): void {}
 
   onSubmitForm() {}
 
   get getFn() {
-    return this.regForm.get('fnInput');
+    return this.regForm.get('FirstName');
   }
 
   get getLn() {
-    return this.regForm.get('lnInput');
+    return this.regForm.get('LastName');
   }
 
   get getEmail() {
-    return this.regForm.get('emailInput');
+    return this.regForm.get('Email');
   }
 
   get getPassword() {
-    return this.regForm.get('passwordInput');
+    return this.regForm.get('Password');
   }
 
   get getRePassword() {
-    return this.regForm.get('rePasswordInput');
+    return this.regForm.get('rePassword');
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {
@@ -68,5 +73,11 @@ export class RegisterPageComponent implements OnInit {
         matchingControl.setErrors(null);
       }
     };
+  }
+
+  register() {
+    this.registerUser = this.regForm.value;
+    this.registerUser.RoleName = this.isAdmin ? 'admin' : 'user';
+    this.auth.createUser(this.registerUser);
   }
 }
