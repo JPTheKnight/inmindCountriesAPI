@@ -8,12 +8,9 @@
       name="firstName"
       type="text"
       placeholder="Enter your first name"
-      formControlName="FirstName"
+      formControlName="Firstname"
     />
-    <p
-      *ngIf="getFn && getFn.invalid && getFn.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
+    <p *ngIf="testFn" style="color: red; margin-top: 3px; width: 90%">
       This input is required.
     </p>
   </div>
@@ -23,12 +20,9 @@
       name="lastName"
       type="type"
       placeholder="Enter your last name"
-      formControlName="LastName"
+      formControlName="Lastname"
     />
-    <p
-      *ngIf="getLn && getLn.invalid && getLn.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
+    <p *ngIf="testLn" style="color: red; margin-top: 3px; width: 90%">
       This input is required.
     </p>
   </div>
@@ -40,20 +34,14 @@
       placeholder="Enter your email"
       formControlName="Email"
     />
-    <p
-      *ngIf="getEmail && getEmail.invalid && getEmail.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
+    <p *ngIf="testEmail" style="color: red; margin-top: 3px; width: 90%">
       Email is invalid.
     </p>
   </div>
   <div class="input-container">
     <label for="password">Password</label>
     <input name="password" type="password" formControlName="Password" />
-    <p
-      *ngIf="getPassword && getPassword.invalid && getPassword.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
+    <p *ngIf="testPassword" style="color: red; margin-top: 3px; width: 90%">
       Password of minimum 8 characters is required.
     </p>
   </div>
@@ -61,31 +49,19 @@
     <label for="rePassword">Confirm Password</label>
     <input name="rePassword" type="password" formControlName="rePassword" />
     <p
-      *ngIf="
-        getRePassword && getRePassword.errors?.required && getRePassword.touched
-      "
+      *ngIf="testRePassword_Input"
       style="color: red; margin-top: 3px; width: 90%"
     >
       Input is required.
     </p>
     <p
-      *ngIf="
-        getRePassword &&
-        getRePassword.invalid &&
-        getRePassword.touched &&
-        !getRePassword.errors?.confirmedValidator &&
-        !getRePassword.errors?.required
-      "
+      *ngIf="testRePassword_Chars"
       style="color: red; margin-top: 3px; width: 90%"
     >
       Password of minimum 8 characters is required.
     </p>
     <p
-      *ngIf="
-        getRePassword &&
-        getRePassword.touched &&
-        getRePassword.errors?.confirmedValidator
-      "
+      *ngIf="testRePassword_Match"
       style="color: red; margin-top: 3px; width: 90%"
     >
       Passwords don't match.
@@ -95,6 +71,8 @@
     <input type="checkbox" name="admin" [value]="false" [(ngModel)]="isAdmin" />
     <label for="admin">Is Admin</label>
   </div>
+
+  //FIXME
   <button type="submit" [disabled]="regForm.invalid" (click)="register()">
     <b>Register</b>
   </button>

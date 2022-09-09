@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from 'src/app/countries.service';
-import { Country } from 'src/app/country';
+import { Country } from 'src/app/models/country';
 import { Observable, Subject, of } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  tap,
-} from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -17,8 +12,8 @@ import {
 export class MainComponent implements OnInit {
   constructor(private countriesService: CountriesService) {}
 
+  mainCountries: Country[] = [];
   countries: Country[] = [];
-  countries$: Observable<Country[]> = of([]);
   private searchTerms = new Subject<string>();
   totalCountries: number = 0;
   availableRegions?: Array<string> = [];
@@ -39,23 +34,24 @@ export class MainComponent implements OnInit {
     this.countriesService.getAllCountries().subscribe((c) => {
       this.totalCountries = c.length;
       this.countries = c;
+      this.mainCountries = c;
+      this.countriesService.countries$ = of(c);
       this.availableRegions = [
         ...new Set(this.countries.map((region) => region.region)),
       ];
-      return (this.countries$ = of(c));
     });
 
     this.searchTerms
       .pipe(
         switchMap((term: string) =>
-          /*this.countriesService.searchCountries(term)*/ of(
-            this.countries.filter((obj) =>
+          of(
+            this.mainCountries.filter((obj) =>
               obj.name.common.toLowerCase().includes(term.toLowerCase())
             )
           )
         )
       )
-      .subscribe((data) => (this.countries$ = of(data)));
+      .subscribe((data) => (this.countries = data));
   }
 
   showFilters() {
@@ -66,27 +62,34 @@ export class MainComponent implements OnInit {
   search(term: string): void {
     if (term != '') this.searchTerms.next(term);
     else {
-      this.countries$ = of(this.countries);
+      this.countries = this.mainCountries;
     }
   }
 
   getRegions(region: string) {
     this.countries = [];
-    this.countries$ = of([]);
+    this.mainCountries = [];
+
     if (region == 'All') {
-      this.countriesService.getAllCountries().subscribe((c) => {
-        this.totalCountries = c.length;
-        this.countries = c;
-        return (this.countries$ = of(c));
+      this.countriesService.countries$.subscribe((data) => {
+        this.mainCountries = data;
+        this.countries = data;
       });
     } else {
       this.countriesService
         .getCountriesToASpecificRegion(region)
         .subscribe((c) => {
           this.totalCountries = c.length;
+          this.mainCountries = c;
           this.countries = c;
-          return (this.countries$ = of(c));
         });
+      // this.countriesService.countries$.subscribe((data) => {
+      //   this.mainCountries = data.filter(
+      //     (obj) => obj.region.toLowerCase() == region.toLowerCase()
+      //   );
+      //   this.countries = this.mainCountries;
+      //   this.totalCountries = this.mainCountries.length;
+      // });
     }
   }
 

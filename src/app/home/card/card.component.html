@@ -1,0 +1,14 @@
+<div
+  class="card"
+  *ngFor="let country of countries"
+  routerLink="/countries/{{ country.name.common }}"
+>
+  <img src="{{ country.flags.svg }}" />
+  <span class="info">
+    <span
+      ><b>{{ country.name.common }}</b></span
+    >
+    <span>Region: {{ country.region }}</span>
+    <span>Population: {{ country.population | nFormatter }}</span>
+  </span>
+</div>

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from 'src/app/countries.service';
-import { Country } from 'src/app/country';
+import { Country } from 'src/app/models/country';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { isEmpty, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-country-details',
@@ -81,12 +83,26 @@ export class CountryDetailsComponent implements OnInit {
       }
     });
 
-    this.countriesServices
-      .getCountry(
-        this.route.snapshot.paramMap.get('name')!,
-        this.route.snapshot.paramMap.get('name')!.length == 3 ? 'alpha' : 'name'
-      )
-      .subscribe((c) => (this.country = c));
+    this.countriesServices.countries$.pipe(isEmpty()).subscribe((res) => {
+      if (res === true) {
+        this.countriesServices.getAllCountries().subscribe((data) => {
+          this.countriesServices.countries$ = of(data);
+          this.countriesServices
+            .getCountry(this.route.snapshot.paramMap.get('name')!)
+            .subscribe((c) => {
+              this.country = c;
+              this.changeBordersNames();
+            });
+        });
+      } else {
+        this.countriesServices
+          .getCountry(this.route.snapshot.paramMap.get('name')!)
+          .subscribe((c) => {
+            this.country = c;
+            this.changeBordersNames();
+          });
+      }
+    });
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -96,29 +112,21 @@ export class CountryDetailsComponent implements OnInit {
     }
   }
 
+  changeBordersNames() {
+    this.country.map((obj) =>
+      obj.borders.forEach((elt, index) => {
+        this.countriesServices.countries$.subscribe((data) => {
+          obj.borders[index] = data.filter(
+            (obj1) => obj1.cca3 == elt
+          )[0].name.common;
+        });
+      })
+    );
+  }
+
   showCountries() {
     const countryDialog = document.getElementById('country-dialog');
     if (countryDialog != null) countryDialog.style.display = 'flex';
-  }
-
-  showInfo() {
-    const infoDialog = document.getElementById('info-container');
-    const upArrow = document.getElementById('info-up-arrow');
-    if (infoDialog != null && upArrow != null && !this.isInfoContainerUp) {
-      //infoDialog.style.bottom = '0';
-      upArrow.style.transform = 'rotate(180deg) translateX(50%)';
-      this.isInfoContainerUp = true;
-      return;
-    } else if (
-      infoDialog != null &&
-      upArrow != null &&
-      this.isInfoContainerUp
-    ) {
-      //infoDialog.style.bottom = `${this.bottom}px`;
-      upArrow.style.transform = 'rotate(0) translateX(-50%)';
-      this.isInfoContainerUp = false;
-      return;
-    }
   }
 
   Resize() {

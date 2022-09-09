@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from 'src/material.module';
 import { EditCountryInfoComponent } from './edit-country-info/edit-country-info.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditCountryInfoComponent } from './edit-country-info/edit-country-info.
     NFormatterPipe,
     ArrayToStringPipe,
     EditCountryInfoComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,

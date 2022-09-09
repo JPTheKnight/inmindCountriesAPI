@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { Registration } from 'src/app/user';
+import { Registration } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register-page',
@@ -14,8 +14,8 @@ export class RegisterPageComponent implements OnInit {
 
   regForm = this.fb.group(
     {
-      FirstName: ['', [Validators.required, Validators.maxLength(32)]],
-      LastName: ['', [Validators.required, Validators.maxLength(32)]],
+      Firstname: ['', [Validators.required, Validators.maxLength(32)]],
+      Lastname: ['', [Validators.required, Validators.maxLength(32)]],
       Email: [
         '',
         [
@@ -37,24 +37,62 @@ export class RegisterPageComponent implements OnInit {
 
   onSubmitForm() {}
 
-  get getFn() {
-    return this.regForm.get('FirstName');
+  get testFn() {
+    return (
+      this.regForm.get('Firstname') &&
+      this.regForm.get('Firstname')?.invalid &&
+      this.regForm.get('Firstname')?.touched
+    );
   }
 
-  get getLn() {
-    return this.regForm.get('LastName');
+  get testLn() {
+    return (
+      this.regForm.get('Lastname') &&
+      this.regForm.get('Lastname')?.invalid &&
+      this.regForm.get('Lastname')?.touched
+    );
   }
 
-  get getEmail() {
-    return this.regForm.get('Email');
+  get testEmail() {
+    return (
+      this.regForm.get('Email') &&
+      this.regForm.get('Email')?.invalid &&
+      this.regForm.get('Email')?.touched
+    );
   }
 
-  get getPassword() {
-    return this.regForm.get('Password');
+  get testPassword() {
+    return (
+      this.regForm.get('Password') &&
+      this.regForm.get('Password')?.invalid &&
+      this.regForm.get('Password')?.touched
+    );
   }
 
-  get getRePassword() {
-    return this.regForm.get('rePassword');
+  get testRePassword_Input() {
+    return (
+      this.regForm.get('rePassword') &&
+      this.regForm.get('rePassword')?.errors?.required &&
+      this.regForm.get('rePassword')?.touched
+    );
+  }
+
+  get testRePassword_Chars() {
+    return (
+      this.regForm.get('rePassword') &&
+      !this.regForm.get('rePassword')?.errors?.required &&
+      this.regForm.get('rePassword')?.touched &&
+      !this.regForm.get('rePassword')?.errors?.confirmedValidator &&
+      this.regForm.get('rePassword')?.invalid
+    );
+  }
+
+  get testRePassword_Match() {
+    return (
+      this.regForm.get('rePassword') &&
+      this.regForm.get('rePassword')?.touched &&
+      this.regForm.get('rePassword')?.errors?.confirmedValidator
+    );
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {
@@ -78,6 +116,8 @@ export class RegisterPageComponent implements OnInit {
   register() {
     this.registerUser = this.regForm.value;
     this.registerUser.RoleName = this.isAdmin ? 'admin' : 'user';
-    this.auth.createUser(this.registerUser);
+    this.auth
+      .createUser(this.registerUser)
+      .subscribe((data) => console.log(data));
   }
 }

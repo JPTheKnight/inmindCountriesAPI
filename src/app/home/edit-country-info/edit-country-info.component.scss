@@ -82,7 +82,6 @@
       .info-data {
         padding-top: 25px;
 
-        select,
         input {
           height: 30px;
           width: 300px;
@@ -105,7 +104,6 @@
 
           span {
             position: relative;
-            select,
             input {
               margin-top: 10px;
 
@@ -139,7 +137,6 @@
         }
 
         .double {
-          select,
           input {
             width: 220px;
             &:first-child {
@@ -149,7 +146,6 @@
         }
 
         .triple {
-          select,
           input {
             width: 150px;
             &:first-child {

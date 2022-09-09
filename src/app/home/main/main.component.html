@@ -74,27 +74,13 @@
       </svg>
     </button>
   </div>
-  <div class="spinner" *ngIf="(countries$ | async)?.length == 0"></div>
-  <div class="card-grid" *ngIf="(countries$! | async)!.length > 0">
-    <div
-      class="card"
-      *ngFor="let country of countries$ | async"
-      routerLink="/countries/{{ country.name.common }}"
-    >
-      <img src="{{ country.flags.svg }}" />
-      <span class="info">
-        <span
-          ><b>{{ country.name.common }}</b></span
-        >
-        <span>Region: {{ country.region }}</span>
-        <span>Population: {{ country.population | nFormatter }}</span>
-      </span>
-    </div>
-  </div>
-  <div class="showing" *ngIf="(countries$! | async)!.length > 0">
-    <b
-      >Showing {{ (countries$ | async)?.length }} of
-      {{ totalCountries }} countries</b
-    >
+  <div class="spinner" *ngIf="countries.length == 0"></div>
+  <app-card
+    class="card-grid"
+    *ngIf="countries!.length > 0"
+    [countries]="countries"
+  ></app-card>
+  <div class="showing" *ngIf="countries!.length > 0">
+    <b>Showing {{ countries.length }} of {{ totalCountries }} countries</b>
   </div>
 </div>

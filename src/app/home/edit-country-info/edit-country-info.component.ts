@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from 'src/app/countries.service';
-import { Country } from 'src/app/country';
+import { Country } from 'src/app/models/country';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditCountryInfoComponent implements OnInit {
   country!: Country;
-  selectedRegion: string = 'Africa';
+  selectedRegion: string = '';
 
   constructor(
     private countriesServices: CountriesService,
@@ -19,12 +19,13 @@ export class EditCountryInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.countriesServices
-      .getCountry(this.route.snapshot.paramMap.get('name')!, 'name')
+      .getCountry(this.route.snapshot.paramMap.get('name')!)
       .subscribe((c) => {
         this.country = c[0];
       });
   }
 
+  //FIXME
   addSection(event: Event, id: number) {
     console.log(event);
     if (id == 0) {

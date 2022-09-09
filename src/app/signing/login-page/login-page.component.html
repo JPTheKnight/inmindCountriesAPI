@@ -8,30 +8,26 @@
       name="email"
       type="email"
       placeholder="Enter your email"
-      formControlName="emailInput"
+      formControlName="Username"
     />
-    <p
-      *ngIf="getEmail && getEmail.invalid && getEmail.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
+    <p *ngIf="testEmail" style="color: red; margin-top: 3px; width: 90%">
       Email is invalid.
     </p>
   </div>
   <div class="input-container">
     <label for="password">Password</label>
-    <input name="password" type="password" formControlName="passwordInput" />
-    <p
-      *ngIf="getPassword && getPassword.invalid && getPassword.touched"
-      style="color: red; margin-top: 3px; width: 90%"
-    >
-      Password of minimum 8 characters is required.
+    <input name="password" type="password" formControlName="Password" />
+    <p *ngIf="testPassword" style="color: red; margin-top: 3px; width: 90%">
+      Password is required.
     </p>
   </div>
   <div class="checkbox-container">
     <input type="checkbox" name="remember" />
     <label for="remember">Remember me</label>
   </div>
-  <button type="submit" [disabled]="loginForm.invalid"><b>Sign in</b></button>
+  <button type="submit" [disabled]="loginForm.invalid" (click)="login()">
+    <b>Sign in</b>
+  </button>
   <div class="signup">
     <i>Don't have an account? </i>
     <a routerLink="/register"><b> Sign Up</b></a>
