@@ -1,42 +1,71 @@
 <div class="body">
   <div class="white-bg">
-    <div class="title">Edit {{ country.name.common | titlecase }}'s info:</div>
-    <table class="info-container">
+    <div class="title">
+      Edit {{ (country$ | async)?.name?.common | titlecase }}'s info:
+    </div>
+    <table class="info-container" [formGroup]="editForm">
       <tr>
         <td class="info-name">Region:</td>
         <td class="info-data">
-          <input type="text" [value]="country.region" />
+          <input
+            type="text"
+            [value]="(country$ | async)?.region"
+            formControlName="Region"
+          />
         </td>
       </tr>
       <tr>
         <td class="info-name">Population:</td>
         <td class="info-data">
-          <input type="number" [value]="country.population" />
+          <input
+            type="number"
+            [value]="(country$ | async)?.population"
+            formControlName="Population"
+          />
         </td>
       </tr>
       <tr>
         <td class="info-name">Area:</td>
         <td class="info-data">
-          <input type="number" [value]="country.area" />
+          <input
+            type="number"
+            [value]="(country$ | async)?.area"
+            formControlName="Area"
+          />
         </td>
         <td class="info-name">&nbsp;&nbsp;km²</td>
       </tr>
       <tr>
         <td class="info-name">Capital:</td>
         <td class="info-data">
-          <input type="text" [value]="country.capital" />
+          <input
+            type="text"
+            [value]="(country$ | async)?.capital"
+            formControlName="Capital"
+          />
         </td>
       </tr>
       <tr>
         <td class="info-name">Languages:</td>
         <td class="info-data">
           <div class="double multiple">
-            <span *ngFor="let obj of country.languages | keyvalue"
-              ><input type="text" [value]="obj.key" /><input
+            <!--<app-languages-form
+              *ngFor="let langItem of languages; let i = index"
+              [langItem]="langItem"
+              [index]="i"
+              [form]="Languages"
+              (newInput)="createNewInput($event)"
+            ></app-languages-form>-->
+            <span
+              [formGroup]="Languages"
+              *ngFor="let langItem of languages; first as isFirst"
+              ><input
                 type="text"
-                [value]="obj.value" /><img
+                [value]="langItem.value"
+                [formControlName]="langItem.key"
+                placeholder="new language" /><img
                 src="../../../assets/img/x-svgrepo-com.svg"
-                (click)="addSection($event, 0)"
+                (click)="createNewLanguageInput(isFirst, langItem.key)"
             /></span>
           </div>
         </td>
@@ -44,19 +73,44 @@
       <tr>
         <td class="info-name">Currencies:</td>
         <td class="info-data">
-          <div class="triple multiple">
-            <span *ngFor="let obj of country.currencies | keyvalue"
-              ><input type="text" [value]="obj.key" />
-              <input type="text" [value]="getObjSymbol(obj)" />
-              <input type="text" [value]="getObjName(obj)" /><img
+          <div class="triple multiple" [formGroup]="Currencies">
+            <span
+              [formGroup]="Currencies_Data[i]"
+              *ngFor="let currItem of currencies; first as isFirst; index as i"
+            >
+              <input
+                type="text"
+                [value]="currItem.symbol"
+                [formControlName]="'symbol'"
+                placeholder="sym" />
+              <input
+                type="text"
+                [value]="currItem.name"
+                [formControlName]="'name'"
+                placeholder="new currency" /><img
                 src="../../../assets/img/x-svgrepo-com.svg"
+                (click)="createNewCurrencyInput(isFirst, currItem.key)"
             /></span>
           </div>
         </td>
       </tr>
     </table>
 
-    <button type="submit"><b>Save</b></button>
-    <button class="cancel" type="submit"><b>Cancel</b></button>
+    <p
+      *ngIf="this.editForm.invalid"
+      style="color: red; font-size: 0.6rem; margin-left: 30px"
+    >
+      Not all input fields are filled.
+    </p>
+    <button type="submit" [disabled]="this.editForm.invalid">
+      <b>Save</b>
+    </button>
+    <button
+      class="cancel"
+      type="submit"
+      routerLink="/countries/{{ this.param }}"
+    >
+      <b>Cancel</b>
+    </button>
   </div>
 </div>

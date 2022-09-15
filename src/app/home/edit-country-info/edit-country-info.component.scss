@@ -91,10 +91,6 @@
           border-radius: 5px;
           border: none;
           background-color: rgb(226, 226, 226);
-
-          &:hover {
-            cursor: pointer;
-          }
         }
 
         .multiple {
@@ -106,20 +102,6 @@
             position: relative;
             input {
               margin-top: 10px;
-
-              &:hover {
-                cursor: pointer;
-              }
-            }
-
-            &:first-child {
-              img {
-                transform: rotate(45deg);
-                height: 20px;
-                width: 20px;
-                top: 15px;
-                right: -28px;
-              }
             }
 
             img {
@@ -133,26 +115,24 @@
                 cursor: pointer;
               }
             }
-          }
-        }
 
-        .double {
-          input {
-            width: 220px;
             &:first-child {
-              width: 60px;
+              img {
+                transform: rotate(45deg);
+                top: 15px;
+                right: -27px;
+                height: 20px;
+                width: 20px;
+              }
             }
           }
         }
 
         .triple {
           input {
-            width: 150px;
+            width: 220px;
             &:first-child {
               width: 60px;
-            }
-            &:nth-child(2) {
-              width: 50px;
             }
           }
         }

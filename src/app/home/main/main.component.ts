@@ -1,22 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from 'src/app/countries.service';
-import { Country } from 'src/app/models/country';
-import { Observable, Subject, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CountriesService } from '../../countries.service';
+import { Country } from '../../models/country';
+import { Observable, Subject, of, Subscription } from 'rxjs';
+import { switchMap, filter, map, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { initializeState } from '../../store/actions/countries.actions';
+import {
+  selectAllCountries,
+  selectSpecificRegion,
+} from '../../store/selectors/countries.selector';
+import { AppState } from '../../store/country.state';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
-  constructor(private countriesService: CountriesService) {}
+export class MainComponent implements OnInit, OnDestroy {
+  constructor(
+    private countriesService: CountriesService,
+    private store: Store<AppState>
+  ) {}
 
-  mainCountries: Country[] = [];
-  countries: Country[] = [];
-  private searchTerms = new Subject<string>();
+  searchTerms: string = '';
   totalCountries: number = 0;
   availableRegions?: Array<string> = [];
+  allCountries$: Observable<Country[]> = this.store.select(selectAllCountries);
+  regionSelected: string = 'all';
+
+  subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     const filterDialog = document.getElementById(
@@ -31,27 +43,26 @@ export class MainComponent implements OnInit {
       }
     });
 
-    this.countriesService.getAllCountries().subscribe((c) => {
-      this.totalCountries = c.length;
-      this.countries = c;
-      this.mainCountries = c;
-      this.countriesService.countries$ = of(c);
-      this.availableRegions = [
-        ...new Set(this.countries.map((region) => region.region)),
-      ];
-    });
+    this.subscriptions.push(
+      this.store.select(selectAllCountries).subscribe((data) => {
+        if (data.length == 0) {
+          this.store.dispatch(initializeState());
+        }
+      })
+    );
 
-    this.searchTerms
-      .pipe(
-        switchMap((term: string) =>
-          of(
-            this.mainCountries.filter((obj) =>
-              obj.name.common.toLowerCase().includes(term.toLowerCase())
-            )
-          )
-        )
-      )
-      .subscribe((data) => (this.countries = data));
+    this.subscriptions.push(
+      this.allCountries$.subscribe((data) => {
+        this.totalCountries = data.length;
+        this.availableRegions = [
+          ...new Set(data.map((region) => region.region)),
+        ];
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
   }
 
   showFilters() {
@@ -59,37 +70,41 @@ export class MainComponent implements OnInit {
     if (filterDialog != null) filterDialog.style.display = 'flex';
   }
 
+  getInputCountries(): Observable<Country[]> {
+    if (this.searchTerms == '') {
+      return this.allCountries$;
+    } else {
+      return this.allCountries$.pipe(
+        map((data) =>
+          data.filter((obj) =>
+            obj.name.common
+              .toLowerCase()
+              .includes(this.searchTerms.toLowerCase())
+          )
+        )
+      );
+    }
+  }
+
   search(term: string): void {
-    if (term != '') this.searchTerms.next(term);
+    if (term != '') this.searchTerms = term;
     else {
-      this.countries = this.mainCountries;
+      this.searchTerms = '';
+      this.getRegions(this.regionSelected);
     }
   }
 
   getRegions(region: string) {
-    this.countries = [];
-    this.mainCountries = [];
-
-    if (region == 'All') {
-      this.countriesService.countries$.subscribe((data) => {
-        this.mainCountries = data;
-        this.countries = data;
-      });
+    if (region.toLowerCase() == 'all') {
+      this.allCountries$ = this.store
+        .select(selectAllCountries)
+        .pipe(tap((data) => (this.totalCountries = data.length)));
+      this.regionSelected = 'all';
     } else {
-      this.countriesService
-        .getCountriesToASpecificRegion(region)
-        .subscribe((c) => {
-          this.totalCountries = c.length;
-          this.mainCountries = c;
-          this.countries = c;
-        });
-      // this.countriesService.countries$.subscribe((data) => {
-      //   this.mainCountries = data.filter(
-      //     (obj) => obj.region.toLowerCase() == region.toLowerCase()
-      //   );
-      //   this.countries = this.mainCountries;
-      //   this.totalCountries = this.mainCountries.length;
-      // });
+      this.allCountries$ = this.store
+        .select(selectSpecificRegion(region))
+        .pipe(tap((data) => (this.totalCountries = data.length)));
+      this.regionSelected = region;
     }
   }
 

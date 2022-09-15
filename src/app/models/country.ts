@@ -51,7 +51,13 @@ export interface CoatOfArms {
 }
 
 export interface Currencies {
-  LBP: Lbp;
+  curr: Currs[];
+}
+
+export interface Currs {
+  key: string;
+  symbol: string;
+  name: string;
 }
 
 export interface Lbp {
@@ -79,8 +85,12 @@ export interface Idd {
 }
 
 export interface Languages {
-  ara: string;
-  fra: string;
+  lang: Langs[];
+}
+
+export interface Langs {
+  key: string;
+  value: string;
 }
 
 export interface Maps {

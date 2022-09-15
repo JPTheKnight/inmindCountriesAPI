@@ -1,27 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from 'src/app/countries.service';
 import { Country } from 'src/app/models/country';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { isEmpty, tap } from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import {
+  selectAllCountries,
+  selectCountry,
+} from 'src/app/store/selectors/countries.selector';
+import { AppState } from '../../store/country.state';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { initializeState } from 'src/app/store/actions/countries.actions';
 
 @Component({
   selector: 'app-country-details',
   templateUrl: './country-details.component.html',
   styleUrls: ['./country-details.component.scss'],
 })
-export class CountryDetailsComponent implements OnInit {
+export class CountryDetailsComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event?: Event) {
     this.Resize();
   }
 
-  country: Country[] = [];
   isInfoContainerUp: boolean = false;
   imageSize: any = { height: 400, width: 600 };
   isEditing: boolean = false;
+  paramName: string = this.route.snapshot.paramMap.get('name')!;
+  country$: Observable<Country> = this.store.select(
+    selectCountry(this.paramName)
+  );
+
+  subscriptions: Subscription[] = [];
 
   imageObject = [
     {
@@ -65,7 +79,10 @@ export class CountryDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private countriesServices: CountriesService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>,
+    private ngxPerm: NgxPermissionsService,
+    private auth: AuthenticationService
   ) {
     this.onResize();
   }
@@ -76,6 +93,7 @@ export class CountryDetailsComponent implements OnInit {
     )! as HTMLElement;
     document.addEventListener('click', (e) => {
       if (
+        countryDialog != null &&
         (e.target as HTMLElement)?.closest('.country-dialog') == null &&
         (e.target as HTMLElement)?.closest('.countries-av') == null
       ) {
@@ -83,26 +101,17 @@ export class CountryDetailsComponent implements OnInit {
       }
     });
 
-    this.countriesServices.countries$.pipe(isEmpty()).subscribe((res) => {
-      if (res === true) {
-        this.countriesServices.getAllCountries().subscribe((data) => {
-          this.countriesServices.countries$ = of(data);
-          this.countriesServices
-            .getCountry(this.route.snapshot.paramMap.get('name')!)
-            .subscribe((c) => {
-              this.country = c;
-              this.changeBordersNames();
-            });
-        });
-      } else {
-        this.countriesServices
-          .getCountry(this.route.snapshot.paramMap.get('name')!)
-          .subscribe((c) => {
-            this.country = c;
-            this.changeBordersNames();
-          });
-      }
-    });
+    if (this.auth.isAdmin()) {
+      this.ngxPerm.loadPermissions(['ADMIN']);
+    }
+
+    this.subscriptions.push(
+      this.store.select(selectAllCountries).subscribe((data) => {
+        if (data.length == 0) {
+          this.store.dispatch(initializeState());
+        }
+      })
+    );
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -112,16 +121,14 @@ export class CountryDetailsComponent implements OnInit {
     }
   }
 
-  changeBordersNames() {
-    this.country.map((obj) =>
-      obj.borders.forEach((elt, index) => {
-        this.countriesServices.countries$.subscribe((data) => {
-          obj.borders[index] = data.filter(
-            (obj1) => obj1.cca3 == elt
-          )[0].name.common;
-        });
-      })
-    );
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
+  }
+
+  getOriginalNameOfCountry(c: string) {
+    return this.store
+      .select(selectAllCountries)
+      .pipe(map((data) => data.filter((obj) => obj.cca3 == c)[0].name.common));
   }
 
   showCountries() {

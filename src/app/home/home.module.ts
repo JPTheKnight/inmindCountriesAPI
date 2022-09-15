@@ -15,7 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from 'src/material.module';
 import { EditCountryInfoComponent } from './edit-country-info/edit-country-info.component';
-import { CardComponent } from './card/card.component';
+import { CardComponent } from './main/card/card.component';
+import { LanguagesFormComponent } from './edit-country-info/languages-form/languages-form.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { CardComponent } from './card/card.component';
     ArrayToStringPipe,
     EditCountryInfoComponent,
     CardComponent,
+    LanguagesFormComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { CardComponent } from './card/card.component';
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,
+    NgxPermissionsModule.forChild(),
   ],
   bootstrap: [HomeComponent],
 })

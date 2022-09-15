@@ -1,0 +1,9 @@
+<span [formGroup]="form" class="lang-container"
+  ><input
+    type="text"
+    [value]="langItem.value"
+    [formControlName]="langItem.key" /><img
+    src="../../../assets/img/x-svgrepo-com.svg"
+    data-id="{{ this.index }}"
+    (click)="addNewInput()"
+/></span>

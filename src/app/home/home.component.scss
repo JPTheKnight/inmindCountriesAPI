@@ -55,6 +55,20 @@ nav {
     }
   }
 
+  .logout {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    font-size: 22px;
+    color: #e00000;
+    transition: all 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      color: rgba(184, 0, 0, 0.671);
+    }
+  }
+
   // .countries-av {
   //   position: absolute;
   //   height: 40px;
@@ -196,6 +210,19 @@ nav {
         color: white;
       }
     }
+
+    .logout {
+      background-color: rgb(218, 101, 101);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #530909;
+        color: white;
+      }
+    }
   }
 }
 
@@ -239,7 +266,7 @@ nav {
     ul {
       display: none;
     }
-    .countries-av {
+    /*.countries-av {
       width: 85px;
 
       img {
@@ -255,6 +282,9 @@ nav {
       div {
         display: none;
       }
+    }*/
+    .logout {
+      display: none;
     }
   }
 }

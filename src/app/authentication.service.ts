@@ -1,6 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Registration, Login, Logout, Delete } from './models/user';
+import {
+  DecodedAccessToken,
+  LoginRes,
+  LoginResponse,
+} from './models/registerResponse';
+import {
+  Registration,
+  Login,
+  Logout,
+  Delete,
+  RefreshToken,
+} from './models/user';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +21,10 @@ import { Registration, Login, Logout, Delete } from './models/user';
 export class AuthenticationService {
   mainUrl = 'http://192.168.1.187:5005/api/User';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwtService: JwtHelperService) {}
 
   loginUser(login: Login) {
-    return this.http.post<Login>(this.mainUrl + '/Login()', login);
+    return this.http.post<LoginResponse>(this.mainUrl + '/Login()', login);
   }
 
   logoutUser(logout: Logout) {
@@ -47,5 +60,28 @@ export class AuthenticationService {
       this.mainUrl + '/DeleteAccount()',
       deleteUser
     );
+  }
+
+  refreshToken(refreshToken: string) {
+    let ref: RefreshToken = { RefreshToken: refreshToken };
+    return this.http.post<LoginRes>(this.mainUrl + '/RefreshToken()', ref);
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('access_token') !== null;
+  }
+
+  isAdmin(): boolean {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      let decoded: DecodedAccessToken = this.jwtService.decodeToken(token);
+      if (decoded.realm_access.roles.includes('Admin')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }

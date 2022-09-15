@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { Registration } from 'src/app/models/user';
 
@@ -10,7 +11,6 @@ import { Registration } from 'src/app/models/user';
 })
 export class RegisterPageComponent implements OnInit {
   registerUser!: Registration;
-  isAdmin!: boolean;
 
   regForm = this.fb.group(
     {
@@ -25,13 +25,18 @@ export class RegisterPageComponent implements OnInit {
       ],
       Password: ['', [Validators.required, Validators.minLength(8)]],
       rePassword: ['', [Validators.required, Validators.minLength(8)]],
+      isAdmin: [false],
     },
     {
       validator: this.ConfirmedValidator('Password', 'rePassword'),
     }
   );
 
-  constructor(private fb: FormBuilder, private auth: AuthenticationService) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -115,9 +120,12 @@ export class RegisterPageComponent implements OnInit {
 
   register() {
     this.registerUser = this.regForm.value;
-    this.registerUser.RoleName = this.isAdmin ? 'admin' : 'user';
-    this.auth
-      .createUser(this.registerUser)
-      .subscribe((data) => console.log(data));
+    this.registerUser.RoleName = this.regForm.get('isAdmin')?.value
+      ? 'admin'
+      : 'user';
+    this.auth.createUser(this.registerUser).subscribe(
+      () => this.router.navigate(['/login']),
+      (error) => console.log(error)
+    );
   }
 }

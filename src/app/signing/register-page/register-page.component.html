@@ -68,14 +68,19 @@
     </p>
   </div>
   <div class="checkbox-container">
-    <input type="checkbox" name="admin" [value]="false" [(ngModel)]="isAdmin" />
+    <input
+      type="checkbox"
+      name="admin"
+      [value]="false"
+      formControlName="isAdmin"
+    />
     <label for="admin">Is Admin</label>
   </div>
 
-  //FIXME
   <button type="submit" [disabled]="regForm.invalid" (click)="register()">
     <b>Register</b>
   </button>
+
   <div class="signin">
     <i>Already have an account? </i>
     <a routerLink="/login"><b> Sign In</b></a>

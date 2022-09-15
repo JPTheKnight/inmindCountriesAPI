@@ -1,0 +1,34 @@
+.lang-container {
+  position: relative;
+  input {
+    height: 30px;
+    font-size: 1.1rem;
+    margin-left: 20px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(226, 226, 226);
+    margin-top: 10px;
+    width: 300px;
+  }
+
+  img {
+    position: absolute;
+    right: -30px;
+    top: -5px;
+    height: 25px;
+    width: 25px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  img[id="0"] {
+    transform: rotate(45deg);
+    top: -2px;
+    right: -27px;
+    height: 20px;
+    width: 20px;
+  }
+}

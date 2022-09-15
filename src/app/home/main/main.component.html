@@ -74,13 +74,17 @@
       </svg>
     </button>
   </div>
-  <div class="spinner" *ngIf="countries.length == 0"></div>
+  <div class="spinner" *ngIf="(allCountries$ | async)!.length == 0"></div>
   <app-card
     class="card-grid"
-    *ngIf="countries!.length > 0"
-    [countries]="countries"
+    *ngIf="(allCountries$ | async)!.length > 0"
+    [countries$]="getInputCountries()"
+    [searchTerm]="searchTerms"
   ></app-card>
-  <div class="showing" *ngIf="countries!.length > 0">
-    <b>Showing {{ countries.length }} of {{ totalCountries }} countries</b>
+  <div class="showing" *ngIf="(allCountries$ | async)!.length > 0">
+    <b
+      >Showing {{ (getInputCountries() | async)!.length }} of
+      {{ totalCountries }} countries</b
+    >
   </div>
 </div>

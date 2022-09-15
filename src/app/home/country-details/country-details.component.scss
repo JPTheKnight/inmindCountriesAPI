@@ -26,7 +26,7 @@
     width: 100vw;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.87);
-    z-index: 99999;
+    z-index: 999999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,6 +106,8 @@
       flex-direction: column;
       font-size: 1.1rem;
       height: 40vh;
+      max-width: 40vw;
+      margin-right: 10px;
       div {
         text-align: left;
         margin-bottom: 20px;
@@ -125,7 +127,7 @@
       .border-countries {
         margin-top: 20px;
         width: 30vw;
-        padding-bottom: 20px;
+        height: fit-content;
         a {
           color: rgb(50, 146, 255);
           text-decoration: none;
@@ -190,16 +192,21 @@
     overflow-y: scroll;
     display: block;
 
+    .spinner-bg {
+      top: 0;
+    }
+
     .info-container {
-      height: fit-content;
+      height: 100vh;
       width: 100vw;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       margin-top: 0;
-      overflow-y: unset;
-      min-height: 550px;
+      overflow-y: auto;
+      min-height: 600px;
 
       .info {
+        max-width: 80vw;
         .border-countries {
           width: 90vw;
         }

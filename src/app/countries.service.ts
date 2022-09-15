@@ -9,8 +9,6 @@ import { Country } from './models/country';
 export class CountriesService {
   constructor(private http: HttpClient) {}
 
-  countries$: Observable<Country[]> = EMPTY;
-
   mainUrl = 'https://restcountries.com/v3.1/';
 
   httpOptions = {
@@ -21,13 +19,13 @@ export class CountriesService {
     return this.http.get<Country[]>(this.mainUrl + 'all');
   }
 
-  getCountry(name: string): Observable<Country[]> {
+  /*getCountry(name: string): Observable<Country[]> {
     return this.http.get<Country[]>(this.mainUrl + 'name/' + name);
   }
 
   getCountriesToASpecificRegion(region: string) {
     return this.http.get<Country[]>(this.mainUrl + 'region/' + region);
-  }
+  }*/
 
   // searchCountries(term: string): Observable<Country[]> {
   //   if (!term.trim()) {

@@ -19,3 +19,7 @@ export interface Logout {
 export interface Delete {
   KeycloakId: string;
 }
+
+export interface RefreshToken {
+  RefreshToken: string;
+}

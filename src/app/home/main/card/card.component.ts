@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Country } from 'src/app/models/country';
 
 @Component({
@@ -7,7 +8,8 @@ import { Country } from 'src/app/models/country';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() countries!: Country[];
+  @Input() countries$!: Observable<Country[]>;
+  @Input() searchTerm!: string;
 
   constructor() {}
 
