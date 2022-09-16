@@ -9,14 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../auth.interceptor';
+import { TranslocoModule } from '@ngneat/transloco';
+import { LanguageDropdownComponent } from '../language-dropdown/language-dropdown.component';
 
 @NgModule({
-  declarations: [SigningComponent, LoginPageComponent, RegisterPageComponent],
+  declarations: [
+    SigningComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    LanguageDropdownComponent,
+  ],
   imports: [
     CommonModule,
     SigningRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    TranslocoModule,
   ],
   bootstrap: [SigningComponent],
   providers: [

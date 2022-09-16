@@ -1,0 +1,15 @@
+<div class="lang" (click)="showLanguages()">
+  <img src="{{ chosenLang.img }}" />
+  <div>{{ chosenLang.lang }}</div>
+  <img src="../../assets/img/down-arrow-svgrepo-com.svg" />
+</div>
+<div class="lang-dialog" id="lang-dialog">
+  <div
+    class="item"
+    *ngFor="let item of otherLangs; index as i"
+    (click)="changeLanguage(item.lang, item.img, i)"
+  >
+    <img src="{{ item.img }}" />
+    <div>{{ item.lang }}</div>
+  </div>
+</div>

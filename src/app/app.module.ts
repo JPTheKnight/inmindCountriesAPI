@@ -15,6 +15,8 @@ import { countryReducer } from './store/reducers/country.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CountryEffects } from './store/effects/countries.effects';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +31,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     StoreModule.forRoot({ countries: countryReducer }),
     EffectsModule.forRoot([CountryEffects]),
     NgxPermissionsModule.forRoot(),
+    HttpClientModule,
+    TranslocoRootModule,
   ],
   bootstrap: [AppComponent],
   providers: [

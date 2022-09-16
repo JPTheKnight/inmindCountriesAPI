@@ -1,70 +1,72 @@
 <form class="components" [formGroup]="regForm" (onSubmit)="onSubmitForm()">
   <div class="title">
-    <b>Register new Account</b>
+    <b>{{ "RegisterSection.registerTitle" | transloco }}</b>
   </div>
   <div class="input-container">
-    <label for="firstName">First Name</label>
+    <label for="firstName">{{ "RegisterSection.firstName" | transloco }}</label>
     <input
       name="firstName"
       type="text"
-      placeholder="Enter your first name"
+      placeholder="{{ 'RegisterSection.enterFirstName' | transloco }}"
       formControlName="Firstname"
     />
     <p *ngIf="testFn" style="color: red; margin-top: 3px; width: 90%">
-      This input is required.
+      {{ "RegisterSection.inputRequired" | transloco }}
     </p>
   </div>
   <div class="input-container">
-    <label for="lastName">Last Name</label>
+    <label for="lastName">{{ "RegisterSection.lastName" | transloco }}</label>
     <input
       name="lastName"
       type="type"
-      placeholder="Enter your last name"
+      placeholder="{{ 'RegisterSection.enterLastName' | transloco }}"
       formControlName="Lastname"
     />
     <p *ngIf="testLn" style="color: red; margin-top: 3px; width: 90%">
-      This input is required.
+      {{ "RegisterSection.inputRequired" | transloco }}
     </p>
   </div>
   <div class="input-container">
-    <label for="email">Email Address</label>
+    <label for="email">{{ "LoginSection.emailAddress" | transloco }}</label>
     <input
       name="email"
       type="email"
-      placeholder="Enter your email"
+      placeholder="{{ 'LoginSection.enterYourEmail' | transloco }}"
       formControlName="Email"
     />
     <p *ngIf="testEmail" style="color: red; margin-top: 3px; width: 90%">
-      Email is invalid.
+      {{ "LoginSection.emailInvalid" | transloco }}
     </p>
   </div>
   <div class="input-container">
-    <label for="password">Password</label>
+    <label for="password">{{ "LoginSection.password" | transloco }}</label>
     <input name="password" type="password" formControlName="Password" />
     <p *ngIf="testPassword" style="color: red; margin-top: 3px; width: 90%">
-      Password of minimum 8 characters is required.
+      {{ "RegisterSection.passwordLength" | transloco }}
     </p>
   </div>
   <div class="input-container">
-    <label for="rePassword">Confirm Password</label>
+    <label for="rePassword">{{
+      "RegisterSection.confirmPassword" | transloco
+    }}</label>
     <input name="rePassword" type="password" formControlName="rePassword" />
     <p
       *ngIf="testRePassword_Input"
       style="color: red; margin-top: 3px; width: 90%"
     >
-      Input is required.
+      {{ "RegisterSection.inputRequired" | transloco }}
     </p>
     <p
       *ngIf="testRePassword_Chars"
       style="color: red; margin-top: 3px; width: 90%"
     >
-      Password of minimum 8 characters is required.
+      {{ "RegisterSection.passwordLength" | transloco }}
     </p>
     <p
       *ngIf="testRePassword_Match"
       style="color: red; margin-top: 3px; width: 90%"
     >
-      Passwords don't match.
+      {{ "RegisterSection.passDontMatch" | transloco }}
     </p>
   </div>
   <div class="checkbox-container">
@@ -74,15 +76,17 @@
       [value]="false"
       formControlName="isAdmin"
     />
-    <label for="admin">Is Admin</label>
+    <label for="admin">{{ "RegisterSection.isAdmin" | transloco }}</label>
   </div>
 
   <button type="submit" [disabled]="regForm.invalid" (click)="register()">
-    <b>Register</b>
+    <b>{{ "RegisterSection.register" | transloco }}</b>
   </button>
 
   <div class="signin">
-    <i>Already have an account? </i>
-    <a routerLink="/login"><b> Sign In</b></a>
+    <i>{{ "RegisterSection.haveAnAccount" | transloco }} </i>
+    <a routerLink="/login"
+      ><b> {{ "LoginSection.signIn" | transloco }}</b></a
+    >
   </div>
 </form>

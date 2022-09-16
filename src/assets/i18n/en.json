@@ -1,0 +1,29 @@
+{
+  "LoginSection": {
+    "loginTitle": "Login into your Account",
+    "emailAddress": "Email Address",
+    "emailInvalid": "Email is invalid.",
+    "enterYourEmail": "Enter your email",
+    "password": "Password",
+    "passwordRequired": "Password is required.",
+    "remember": "Remember me",
+    "wrongCredentials": "Wrong email or password.",
+    "signIn": "Sign in",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "RegisterSection": {
+    "registerTitle": "Register new Account",
+    "firstName": "First Name",
+    "inputRequired": "This input is required",
+    "lastName": "Last Name",
+    "passwordLength": "Password of minimum 8 characters is required.",
+    "confirmPassword": "Confirm Password",
+    "passDontMatch": "Passwords don't match.",
+    "isAdmin": "Is Admin",
+    "register": "Register",
+    "haveAnAccount": "Already have an account?",
+    "enterFirstName": "Enter your first name",
+    "enterLastName": "Enter your last name"
+  }
+}

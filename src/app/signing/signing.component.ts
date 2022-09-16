@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-signing',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signing.component.scss'],
 })
 export class SigningComponent implements OnInit {
-  constructor() {}
+  constructor(private translocoService: TranslocoService) {}
 
   ngOnInit(): void {
     localStorage.clear();

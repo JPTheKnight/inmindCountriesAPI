@@ -1,0 +1,29 @@
+{
+  "LoginSection": {
+    "loginTitle": "Connectez-vous à votre compte",
+    "emailAddress": "Adresse e-mail",
+    "emailInvalid": "Le courriel est invalide.",
+    "enterYourEmail": "Entrer votre e-mail",
+    "password": "Mot de passe",
+    "passwordRequired": "Mot de passe requis.",
+    "remember": "Souviens-toi de moi",
+    "wrongCredentials": "Mauvais email ou mot de passe.",
+    "signIn": "S'identifier",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "signUp": "S'inscrire"
+  },
+  "RegisterSection": {
+    "registerTitle": "Enregistrer un nouveau compte",
+    "firstName": "Prénom",
+    "inputRequired": "Cette entrée est obligatoire",
+    "lastName": "Nom de famille",
+    "passwordLength": "Un mot de passe de 8 caractères minimum est requis.",
+    "confirmPassword": "Confirmez le mot de passe",
+    "passDontMatch": "Les mots de passe ne correspondent pas.",
+    "isAdmin": "Est administrateur",
+    "register": "S'inscrire",
+    "haveAnAccount": "Vous avez déjà un compte?",
+    "enterFirstName": "Entrez votre prénom",
+    "enterLastName": "Entrez votre nom"
+  }
+}

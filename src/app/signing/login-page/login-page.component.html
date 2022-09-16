@@ -1,38 +1,40 @@
 <form class="components" [formGroup]="loginForm" (onSubmit)="onSubmitForm()">
   <div class="title">
-    <b>Login into your Account</b>
+    <b>{{ "LoginSection.loginTitle" | transloco }}</b>
   </div>
   <div class="input-container">
-    <label for="email">Email Address</label>
+    <label for="email">{{ "LoginSection.emailAddress" | transloco }}</label>
     <input
       name="email"
       type="email"
-      placeholder="Enter your email"
+      placeholder="{{ 'LoginSection.enterYourEmail' | transloco }}"
       formControlName="Username"
     />
     <p *ngIf="testEmail" style="color: red; margin-top: 3px; width: 90%">
-      Email is invalid.
+      {{ "LoginSection.emailInvalid" | transloco }}
     </p>
   </div>
   <div class="input-container">
-    <label for="password">Password</label>
+    <label for="password">{{ "LoginSection.password" | transloco }}</label>
     <input name="password" type="password" formControlName="Password" />
     <p *ngIf="testPassword" style="color: red; margin-top: 3px; width: 90%">
-      Password is required.
+      {{ "LoginSection.passwordRequired" | transloco }}
     </p>
   </div>
   <div class="checkbox-container">
     <input type="checkbox" name="remember" />
-    <label for="remember">Remember me</label>
+    <label for="remember">{{ "LoginSection.remember" | transloco }}</label>
   </div>
   <div class="wrong-credentials" *ngIf="this.loginError">
-    Wrong email or password.
+    {{ "LoginSection.wrongCredentials" | transloco }}
   </div>
   <button type="submit" [disabled]="loginForm.invalid" (click)="login()">
-    <b>Sign in</b>
+    <b>{{ "LoginSection.signIn" | transloco }}</b>
   </button>
   <div class="signup">
-    <i>Don't have an account? </i>
-    <a routerLink="/register"><b> Sign Up</b></a>
+    <i>{{ "LoginSection.noAccount" | transloco }} </i>
+    <a routerLink="/register"
+      ><b> {{ "LoginSection.signUp" | transloco }}</b></a
+    >
   </div>
 </form>
