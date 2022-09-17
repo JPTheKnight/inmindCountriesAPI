@@ -25,5 +25,40 @@
     "haveAnAccount": "Vous avez déjà un compte?",
     "enterFirstName": "Entrez votre prénom",
     "enterLastName": "Entrez votre nom"
+  },
+  "HomeSection": {
+    "home": "Accueil",
+    "about": "À propos",
+    "contact": "Nous contacter",
+    "logout": "Se déconnecter",
+    "menu": "Menu"
+  },
+  "MainSection": {
+    "inputSearch": "Saisir les termes de recherche",
+    "regions": "Régions",
+    "all": "Tout",
+    "ShowingCountries": {
+      "showing": "Montrant",
+      "of": "de",
+      "countries": "pays"
+    },
+    "Card": {
+      "region": "Région",
+      "population": "Population"
+    }
+  },
+  "DetailsSection": {
+    "about": "À propos",
+    "region": "Région",
+    "population": "Population",
+    "area": "Surface",
+    "capital": "Capitale",
+    "languages": "Langues",
+    "currency": "Devises",
+    "edit": "Modifier",
+    "seeAlso": "Voir également",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "inputsFilled": "Tous les champs de saisie ne sont pas remplis."
   }
 }

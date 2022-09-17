@@ -8,6 +8,7 @@
   align-items: center;
   border-radius: 10px;
   z-index: 9999;
+  font-family: "ArvoRegular", Arial, Helvetica, sans-serif;
 
   img {
     height: 20px;
@@ -73,5 +74,34 @@
       cursor: pointer;
       background-color: rgb(199, 199, 199);
     }
+  }
+}
+
+@-webkit-keyframes scale-up-tr {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+}
+@keyframes scale-up-tr {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+    transform-origin: 100% 0%;
   }
 }

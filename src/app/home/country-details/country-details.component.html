@@ -88,32 +88,38 @@
       </svg>
     </div>
     <div class="title">
-      <b>About {{ (country$ | async)?.name?.common }}:</b>
+      <b
+        >{{ "DetailsSection.about" | transloco }}
+        {{ (country$ | async)?.name?.common }}:</b
+      >
     </div>
     <div class="info">
       <div>
-        Region: <span>{{ (country$ | async)?.region }}</span>
+        {{ "DetailsSection.region" | transloco }}:
+        <span>{{ (country$ | async)?.region }}</span>
       </div>
       <div>
-        Population:
+        {{ "DetailsSection.population" | transloco }}:
         <span>{{ (country$ | async)?.population | number }}</span>
       </div>
       <div>
-        Area: <span>{{ (country$ | async)?.area | number }} km²</span>
+        {{ "DetailsSection.area" | transloco }}:
+        <span>{{ (country$ | async)?.area | number }} km²</span>
       </div>
       <div>
-        Capital: <span>{{ (country$ | async)?.capital }}</span>
+        {{ "DetailsSection.capital" | transloco }}:
+        <span>{{ (country$ | async)?.capital }}</span>
       </div>
       <div>
-        Languages:
+        {{ "DetailsSection.languages" | transloco }}:
         <span>{{ (country$ | async)?.languages | arrayToString: 1 }}</span>
       </div>
       <div>
-        Currency:
+        {{ "DetailsSection.currency" | transloco }}:
         <span>{{ (country$ | async)?.currencies | arrayToString: 2 }}</span>
       </div>
       <div class="border-countries">
-        See also:
+        {{ "DetailsSection.seeAlso" | transloco }}:
         <a
           *ngFor="let c of (country$ | async)?.borders"
           routerLink="/countries/{{ getOriginalNameOfCountry(c) | async }}"

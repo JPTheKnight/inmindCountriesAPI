@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { Logout } from '../models/user';
@@ -9,7 +9,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    localStorage.clear();
+  }
 
   onCloseMenu() {
     const sideMenu = document.getElementById('side-menu-bg');

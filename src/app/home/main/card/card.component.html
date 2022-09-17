@@ -8,7 +8,12 @@
     <span
       ><b>{{ country.name.common }}</b></span
     >
-    <span>Region: {{ country.region }}</span>
-    <span>Population: {{ country.population | nFormatter }}</span>
+    <span
+      >{{ "MainSection.Card.region" | transloco }}: {{ country.region }}</span
+    >
+    <span
+      >{{ "MainSection.Card.population" | transloco }}:
+      {{ country.population | nFormatter }}</span
+    >
   </span>
 </div>

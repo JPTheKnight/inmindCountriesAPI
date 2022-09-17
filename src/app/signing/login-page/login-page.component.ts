@@ -72,4 +72,26 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       (error) => (this.loginError = true)
     );
   }
+
+  show() {
+    var x = document.getElementById('passInput')! as HTMLInputElement;
+    let y = document.getElementById('eye')! as HTMLElement;
+    let y1 = document.getElementById('noeye')! as HTMLElement;
+    if (x.type === 'password') {
+      x.type = 'text';
+      y.style.display = 'none';
+      y1.style.display = 'block';
+    }
+  }
+
+  unShow() {
+    var x = document.getElementById('passInput')! as HTMLInputElement;
+    let y = document.getElementById('eye')! as HTMLElement;
+    let y1 = document.getElementById('noeye')! as HTMLElement;
+    if (x.type === 'text') {
+      x.type = 'password';
+      y1.style.display = 'none';
+      y.style.display = 'block';
+    }
+  }
 }

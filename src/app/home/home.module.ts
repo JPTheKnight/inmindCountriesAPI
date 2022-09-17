@@ -16,8 +16,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from 'src/material.module';
 import { EditCountryInfoComponent } from './edit-country-info/edit-country-info.component';
 import { CardComponent } from './main/card/card.component';
-import { LanguagesFormComponent } from './edit-country-info/languages-form/languages-form.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { LangdropModule } from '../language-dropdown/langdrop.module';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     ArrayToStringPipe,
     EditCountryInfoComponent,
     CardComponent,
-    LanguagesFormComponent,
   ],
   imports: [
     CommonModule,
@@ -37,9 +37,11 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     NgImageSliderModule,
     HttpClientModule,
     FormsModule,
+    LangdropModule,
     MatNativeDateModule,
     MaterialExampleModule,
     ReactiveFormsModule,
+    TranslocoModule,
     NgxPermissionsModule.forChild(),
   ],
   bootstrap: [HomeComponent],

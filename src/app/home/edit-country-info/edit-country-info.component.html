@@ -1,11 +1,12 @@
 <div class="body">
   <div class="white-bg">
     <div class="title">
-      Edit {{ (country$ | async)?.name?.common | titlecase }}'s info:
+      {{ "DetailsSection.edit" | transloco }}
+      {{ (country$ | async)?.name?.common | titlecase }}'s info:
     </div>
     <table class="info-container" [formGroup]="editForm">
       <tr>
-        <td class="info-name">Region:</td>
+        <td class="info-name">{{ "DetailsSection.region" | transloco }}:</td>
         <td class="info-data">
           <input
             type="text"
@@ -15,7 +16,9 @@
         </td>
       </tr>
       <tr>
-        <td class="info-name">Population:</td>
+        <td class="info-name">
+          {{ "DetailsSection.population" | transloco }}:
+        </td>
         <td class="info-data">
           <input
             type="number"
@@ -25,7 +28,7 @@
         </td>
       </tr>
       <tr>
-        <td class="info-name">Area:</td>
+        <td class="info-name">{{ "DetailsSection.area" | transloco }}:</td>
         <td class="info-data">
           <input
             type="number"
@@ -36,7 +39,7 @@
         <td class="info-name">&nbsp;&nbsp;km²</td>
       </tr>
       <tr>
-        <td class="info-name">Capital:</td>
+        <td class="info-name">{{ "DetailsSection.capital" | transloco }}:</td>
         <td class="info-data">
           <input
             type="text"
@@ -46,16 +49,9 @@
         </td>
       </tr>
       <tr>
-        <td class="info-name">Languages:</td>
+        <td class="info-name">{{ "DetailsSection.languages" | transloco }}:</td>
         <td class="info-data">
           <div class="double multiple">
-            <!--<app-languages-form
-              *ngFor="let langItem of languages; let i = index"
-              [langItem]="langItem"
-              [index]="i"
-              [form]="Languages"
-              (newInput)="createNewInput($event)"
-            ></app-languages-form>-->
             <span
               [formGroup]="Languages"
               *ngFor="let langItem of languages; first as isFirst"
@@ -71,7 +67,7 @@
         </td>
       </tr>
       <tr>
-        <td class="info-name">Currencies:</td>
+        <td class="info-name">{{ "DetailsSection.currency" | transloco }}:</td>
         <td class="info-data">
           <div class="triple multiple" [formGroup]="Currencies">
             <span
@@ -100,17 +96,17 @@
       *ngIf="this.editForm.invalid"
       style="color: red; font-size: 0.6rem; margin-left: 30px"
     >
-      Not all input fields are filled.
+      {{ "DetailsSection.inputsFilled" | transloco }}
     </p>
     <button type="submit" [disabled]="this.editForm.invalid">
-      <b>Save</b>
+      <b>{{ "DetailsSection.save" | transloco }}</b>
     </button>
     <button
       class="cancel"
       type="submit"
       routerLink="/countries/{{ this.param }}"
     >
-      <b>Cancel</b>
+      <b>{{ "DetailsSection.cancel" | transloco }}</b>
     </button>
   </div>
 </div>

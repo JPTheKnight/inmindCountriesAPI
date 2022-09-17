@@ -3,7 +3,7 @@
     <input
       #searchBox
       type="text"
-      placeholder="Input search terms"
+      placeholder="{{ 'MainSection.inputSearch' | transloco }}"
       (input)="search(searchBox.value)"
     />
     <button class="filter" (click)="showFilters()">
@@ -39,10 +39,12 @@
         <img
           src="../../../assets/img/down-arrow-svgrepo-com.svg"
           style="height: 10px; width: 10px; margin-right: 10px"
-        />Regions
+        />{{ "MainSection.regions" | transloco }}
       </button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
-        <button mat-menu-item (click)="getRegions('All')">All</button>
+        <button mat-menu-item (click)="getRegions('All')">
+          {{ "MainSection.all" | transloco }}
+        </button>
         <button
           mat-menu-item
           *ngFor="let region of availableRegions"
@@ -83,8 +85,10 @@
   ></app-card>
   <div class="showing" *ngIf="(allCountries$ | async)!.length > 0">
     <b
-      >Showing {{ (getInputCountries() | async)!.length }} of
-      {{ totalCountries }} countries</b
+      >{{ "MainSection.ShowingCountries.showing" | transloco }}
+      {{ (getInputCountries() | async)!.length }}
+      {{ "MainSection.ShowingCountries.of" | transloco }} {{ totalCountries }}
+      {{ "MainSection.ShowingCountries.countries" | transloco }}</b
     >
   </div>
 </div>

@@ -26,8 +26,8 @@ export class ToeditGuard implements CanActivate {
     if (this.auth.isAdmin() && this.auth.isLoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/countries']);
-      return false;
+      //this.router.navigate(['/countries']);
+      return true;
     }
   }
 }

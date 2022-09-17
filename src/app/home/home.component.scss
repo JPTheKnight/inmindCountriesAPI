@@ -55,17 +55,25 @@ nav {
     }
   }
 
+  .lang-dropdown {
+    position: absolute;
+    top: 15px;
+    right: 70px;
+  }
+
   .logout {
     position: absolute;
-    top: 25px;
-    right: 40px;
+    top: 20px;
+    right: 20px;
     font-size: 22px;
-    color: #e00000;
+    fill: #e00000;
     transition: all 0.3s;
+    height: 30px;
+    width: 30px;
 
     &:hover {
       cursor: pointer;
-      color: rgba(184, 0, 0, 0.671);
+      fill: rgba(184, 0, 0, 0.671);
     }
   }
 }
@@ -133,6 +141,12 @@ nav {
       }
     }
 
+    .lang-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 15px;
+    }
+
     .logout {
       background-color: rgb(218, 101, 101);
       position: absolute;
@@ -149,18 +163,6 @@ nav {
 }
 
 @media screen and (max-width: 800px) {
-  nav {
-    .countries-av {
-      width: 125px;
-
-      div {
-        font-size: 0.9rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 670px) {
   nav {
     position: relative;
     button {
@@ -186,6 +188,10 @@ nav {
       }
     }
     ul {
+      display: none;
+    }
+
+    .lang-dropdown {
       display: none;
     }
     /*.countries-av {

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mainUrl: 'https://restcountries.com/v3.1/',
+  authUrl: 'http://192.168.1.187:5005/api/User',
 };
 
 /*

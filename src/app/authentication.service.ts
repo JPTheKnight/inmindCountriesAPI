@@ -13,22 +13,23 @@ import {
   RefreshToken,
 } from './models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  mainUrl = 'http://192.168.1.187:5005/api/User';
-
   constructor(private http: HttpClient, private jwtService: JwtHelperService) {}
 
   loginUser(login: Login) {
-    return this.http.post<LoginResponse>(this.mainUrl + '/Login()', login);
+    return this.http.post<LoginResponse>(
+      environment.authUrl + '/Login()',
+      login
+    );
   }
 
   logoutUser(logout: Logout) {
-    return this.http.post<Logout>(this.mainUrl + '/Logout()', logout);
+    return this.http.post<Logout>(environment.authUrl + '/Logout()', logout);
   }
 
   createUser(reg: Registration) {
@@ -41,13 +42,13 @@ export class AuthenticationService {
 
   signUpAsAdmin(reg: Registration) {
     return this.http.post<Registration>(
-      this.mainUrl + '/CreateAdminUser()',
+      environment.authUrl + '/CreateAdminUser()',
       reg
     );
   }
 
   signUpAsUser(reg: Registration) {
-    return this.http.post<Registration>(this.mainUrl + '/SignUp()', reg);
+    return this.http.post<Registration>(environment.authUrl + '/SignUp()', reg);
   }
 
   setToken(accessToken: string, refreshToken: string) {
@@ -57,14 +58,17 @@ export class AuthenticationService {
 
   deleteUser(deleteUser: Delete) {
     return this.http.post<Delete>(
-      this.mainUrl + '/DeleteAccount()',
+      environment.authUrl + '/DeleteAccount()',
       deleteUser
     );
   }
 
   refreshToken(refreshToken: string) {
     let ref: RefreshToken = { RefreshToken: refreshToken };
-    return this.http.post<LoginRes>(this.mainUrl + '/RefreshToken()', ref);
+    return this.http.post<LoginRes>(
+      environment.authUrl + '/RefreshToken()',
+      ref
+    );
   }
 
   isLoggedIn(): boolean {

@@ -39,5 +39,6 @@ import { TranslocoRootModule } from './transloco-root.module';
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
   ],
+  exports: [],
 })
 export class AppModule {}
