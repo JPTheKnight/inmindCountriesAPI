@@ -57,9 +57,11 @@
     "currency": "Monedas",
     "seeAlso": "Ver también",
     "save": "Ahorrar",
-    "cancel": "Cancelar",
+    "cancel": "Atrás",
     "inputsFilled": "No todos los campos de entrada están llenos.",
     "modifyInfo": "Editar la información de {{name}}",
-    "modifyImages": "Editar la información de {{name}}"
+    "modifyImages": "Editar imágenes",
+    "add": "Agregar",
+    "inputUrl": "Introduzca la URL de la imagen"
   }
 }

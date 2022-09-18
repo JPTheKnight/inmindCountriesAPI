@@ -57,9 +57,11 @@
     "currency": "Currencies",
     "seeAlso": "See also",
     "save": "Save",
-    "cancel": "Cancel",
+    "cancel": "Back",
     "inputsFilled": "Not all input fields are filled.",
     "modifyInfo": "Edit {{name}}'s info",
-    "modifyImages": "Edit {{name}}'s images"
+    "modifyImages": "Edit images",
+    "add": "Add",
+    "inputUrl": "Input image URL"
   }
 }

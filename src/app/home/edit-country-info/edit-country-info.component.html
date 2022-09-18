@@ -9,9 +9,14 @@
       </div>
       <table class="info-container" [formGroup]="editForm">
         <tr>
-          <td class="info-name">{{ "DetailsSection.region" | transloco }}:</td>
+          <td class="info-name">
+            <label for="region"
+              >{{ "DetailsSection.region" | transloco }}:</label
+            >
+          </td>
           <td class="info-data">
             <input
+              name="region"
               type="text"
               [value]="(country$ | async)?.region"
               formControlName="region"
@@ -20,10 +25,13 @@
         </tr>
         <tr>
           <td class="info-name">
-            {{ "DetailsSection.population" | transloco }}:
+            <label for="population"
+              >{{ "DetailsSection.population" | transloco }}:</label
+            >
           </td>
           <td class="info-data">
             <input
+              name="population"
               type="number"
               [value]="(country$ | async)?.population"
               formControlName="population"
@@ -31,10 +39,13 @@
           </td>
         </tr>
         <tr>
-          <td class="info-name">{{ "DetailsSection.area" | transloco }}:</td>
+          <td class="info-name">
+            <label for="area">{{ "DetailsSection.area" | transloco }}:</label>
+          </td>
           <td class="info-data">
             <input
               type="number"
+              name="area"
               [value]="(country$ | async)?.area"
               formControlName="area"
             />
@@ -42,9 +53,14 @@
           <td class="info-name">&nbsp;&nbsp;km²</td>
         </tr>
         <tr>
-          <td class="info-name">{{ "DetailsSection.capital" | transloco }}:</td>
+          <td class="info-name">
+            <label for="capital"
+              >{{ "DetailsSection.capital" | transloco }}:</label
+            >
+          </td>
           <td class="info-data">
             <input
+              name="capital"
               type="text"
               [value]="(country$ | async)?.capital"
               formControlName="capital"
@@ -53,7 +69,9 @@
         </tr>
         <tr>
           <td class="info-name">
-            {{ "DetailsSection.languages" | transloco }}:
+            <label for="language"
+              >{{ "DetailsSection.languages" | transloco }}:</label
+            >
           </td>
           <td class="info-data">
             <div class="double multiple">
@@ -61,6 +79,7 @@
                 [formGroup]="Languages"
                 *ngFor="let langItem of languages; first as isFirst"
                 ><input
+                  name="language"
                   type="text"
                   [value]="langItem.value"
                   [formControlName]="langItem.key"
@@ -74,7 +93,9 @@
         </tr>
         <tr>
           <td class="info-name">
-            {{ "DetailsSection.currency" | transloco }}:
+            <label for="currency"
+              >{{ "DetailsSection.currency" | transloco }}:</label
+            >
           </td>
           <td class="info-data">
             <div class="triple multiple" [formGroup]="Currencies">
@@ -87,11 +108,13 @@
                 "
               >
                 <input
+                  name="currency"
                   type="text"
                   [value]="currItem.symbol"
                   [formControlName]="'symbol'"
                   placeholder="sym" />
                 <input
+                  name="currency"
                   type="text"
                   [value]="currItem.name"
                   [formControlName]="'name'"
@@ -123,83 +146,30 @@
       </button>
     </div>
     <div class="images-part editing">
-      <div class="title">Edit images:</div>
-      <img
-        src="../../../assets/img/x-svgrepo-com.svg"
-        alt="X"
-        class="add-images"
-      />
+      <div class="title">{{ "DetailsSection.modifyImages" | transloco }}:</div>
+      <div class="add-photo-container">
+        <input
+          type="text"
+          name="photoUrl"
+          placeholder="{{ 'DetailsSection.inputUrl' | transloco }}"
+          [(ngModel)]="urlInput"
+        />
+        <button
+          type="submit"
+          [disabled]="urlInput.trim() == ''"
+          (click)="addPhoto($event)"
+        >
+          <b>{{ "DetailsSection.add" | transloco }}</b>
+        </button>
+      </div>
       <div class="image-grid">
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
+        <span *ngFor="let img of (this.country$ | async)?.images; index as i">
+          <img src="{{ img }}" alt="photo" class="photo" />
           <img
             src="../../../assets/img/x-svgrepo-com.svg"
             alt="delete"
             class="delete"
-          />
-        </span>
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
-          <img
-            src="../../../assets/img/x-svgrepo-com.svg"
-            alt="delete"
-            class="delete"
-          />
-        </span>
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
-          <img
-            src="../../../assets/img/x-svgrepo-com.svg"
-            alt="delete"
-            class="delete"
-          />
-        </span>
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
-          <img
-            src="../../../assets/img/x-svgrepo-com.svg"
-            alt="delete"
-            class="delete"
-          />
-        </span>
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
-          <img
-            src="../../../assets/img/x-svgrepo-com.svg"
-            alt="delete"
-            class="delete"
-          />
-        </span>
-        <span>
-          <img
-            src="../../../assets/img/62-900x500.jpg"
-            alt="photo"
-            class="photo"
-          />
-          <img
-            src="../../../assets/img/x-svgrepo-com.svg"
-            alt="delete"
-            class="delete"
+            (click)="deletePic(i)"
           />
         </span>
       </div>

@@ -15,6 +15,7 @@ import { AppState } from '../../store/country.state';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { initializeState } from 'src/app/store/actions/countries.actions';
+import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-country-details',
@@ -37,44 +38,7 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  imageObject = [
-    {
-      image:
-        'https://images.unsplash.com/photo-1496823407868-80f47c7453b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGViYW5vbnxlbnwwfHwwfHw%3D&w=1000&q=80',
-      thumbImage:
-        'https://images.unsplash.com/photo-1496823407868-80f47c7453b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGViYW5vbnxlbnwwfHwwfHw%3D&w=1000&q=80',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
-    },
-    {
-      image:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
-      thumbImage:
-        'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
-    },
-  ];
+  imageObject: { image: string; thumbImage: string }[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -114,6 +78,14 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     );
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    this.country$.subscribe((data) => {
+      if (data != undefined) {
+        data.images.forEach((elt) =>
+          this.imageObject.push({ image: elt, thumbImage: elt })
+        );
+      }
+    });
 
     const infoDialog = document.getElementById('info-container');
     if (infoDialog != null) {

@@ -48,7 +48,7 @@
     }
   },
   "DetailsSection": {
-    "about": "À propos",
+    "about": "À propos de",
     "region": "Région",
     "population": "Population",
     "area": "Surface",
@@ -57,9 +57,11 @@
     "currency": "Devises",
     "seeAlso": "Voir également",
     "save": "Enregistrer",
-    "cancel": "Annuler",
+    "cancel": "Retour",
     "inputsFilled": "Tous les champs de saisie ne sont pas remplis.",
     "modifyInfo": "Modifier les informations pour {{name}}",
-    "modifyImages": "Editar las imágenes de {{name}}"
+    "modifyImages": "Modifier les images",
+    "add": "Ajouter",
+    "inputUrl": "URL de l'image d'entrée"
   }
 }

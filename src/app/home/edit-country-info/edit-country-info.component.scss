@@ -38,35 +38,7 @@
       .title {
         font-size: 2rem;
         padding: 30px;
-      }
-
-      button {
-        width: 140.3px;
-        height: 38.78px;
-
-        background: #66beff;
-        border-radius: 6px;
-        font-size: 12px;
-        line-height: 13px;
-        font-family: "ArvoRegular", Arial, sans-serif;
-        color: white;
-        border: none;
-        margin-left: 30px;
-        margin-bottom: 50px;
-
-        &:hover {
-          cursor: pointer;
-          opacity: 0.8;
-        }
-
-        &:disabled {
-          cursor: unset;
-          opacity: 0.7;
-        }
-      }
-
-      .cancel {
-        background: #ff6666;
+        line-height: 40px;
       }
     }
 
@@ -95,7 +67,7 @@
             margin-left: 20px;
             padding-left: 10px;
             border-radius: 5px;
-            border: none;
+            border: 1px rgb(110, 110, 110) solid;
             background-color: rgb(226, 226, 226);
           }
 
@@ -144,27 +116,38 @@
           }
         }
       }
+      button {
+        width: 140.3px;
+        height: 38.78px;
+
+        background: #005794;
+        border-radius: 6px;
+        font-size: 12px;
+        line-height: 13px;
+        font-family: "ArvoRegular", Arial, sans-serif;
+        color: rgb(255, 255, 255);
+        border: none;
+        margin-left: 30px;
+        margin-bottom: 50px;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
+
+        &:disabled {
+          cursor: unset;
+          opacity: 0.7;
+        }
+      }
+
+      .cancel {
+        background: #b30000;
+      }
     }
 
     .images-part {
       position: relative;
-
-      .add-images {
-        position: absolute;
-        top: 30px;
-        left: 230px;
-        height: 20px;
-        width: 20px;
-        transform: rotate(45deg);
-        background-color: white;
-        border-radius: 50%;
-        transition: all 0.3s;
-
-        &:hover {
-          background-color: rgb(155, 155, 155);
-          cursor: pointer;
-        }
-      }
 
       .image-grid::-webkit-scrollbar {
         width: 5px;
@@ -184,7 +167,7 @@
         column-gap: 5px;
         row-gap: 5px;
         width: 80%;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
         max-height: 70vh;
         overflow-y: scroll;
 
@@ -208,6 +191,43 @@
               cursor: pointer;
               background-color: rgb(223, 223, 223);
             }
+          }
+        }
+      }
+      .add-photo-container {
+        margin-left: 30px;
+        display: flex;
+        input {
+          height: 35px;
+          width: 70%;
+          font-size: 1.1rem;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px rgb(110, 110, 110) solid;
+          background-color: rgb(226, 226, 226);
+        }
+        button {
+          width: 70.3px;
+          height: 35px;
+
+          background: #005794;
+          border-radius: 6px;
+          font-size: 12px;
+          line-height: 13px;
+          font-family: "ArvoRegular", Arial, sans-serif;
+          color: rgb(255, 255, 255);
+          border: none;
+          margin-left: 10px;
+          margin-bottom: 20px;
+
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
+
+          &:disabled {
+            cursor: unset;
+            opacity: 0.7;
           }
         }
       }
@@ -252,9 +272,10 @@
         }
       }
       .images-part {
-        .add-images {
-          top: 30px;
-          left: 200px;
+        .add-photo-container {
+          input {
+            width: 65%;
+          }
         }
       }
     }
@@ -301,14 +322,15 @@
         }
       }
       .images-part {
-        .add-images {
-          top: 30px;
-          left: 230px;
-        }
         .image-grid {
           grid-template-columns: repeat(auto-fill, minmax(200px, 0.98fr));
           width: 85%;
           max-height: 50vh;
+        }
+        .add-photo-container {
+          input {
+            width: 74%;
+          }
         }
       }
     }
@@ -352,12 +374,13 @@
         }
       }
       .images-part {
-        .add-images {
-          top: 30px;
-          left: 210px;
-        }
         .image-grid {
           width: 80%;
+        }
+        .add-photo-container {
+          input {
+            width: 65%;
+          }
         }
       }
     }
@@ -406,13 +429,19 @@
         }
       }
       .images-part {
-        .add-images {
-          top: 30px;
-          left: 170px;
-        }
         .image-grid {
           margin-left: 20px;
           width: 80%;
+        }
+        .add-photo-container {
+          margin-left: 20px;
+          input {
+            width: 58%;
+            height: 30px;
+          }
+          button {
+            height: 30px;
+          }
         }
       }
     }

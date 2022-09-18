@@ -19,6 +19,7 @@ import {
   initializeState,
   modifyCountryInfo,
 } from 'src/app/store/actions/countries.actions';
+import { NgImageSliderComponent } from 'ng-image-slider';
 
 @Component({
   selector: 'app-edit-country-info',
@@ -49,6 +50,8 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
     languages: this.Languages,
     currencies: this.Currencies,
   });
+
+  urlInput: string = '';
 
   constructor(
     private countriesServices: CountriesService,
@@ -188,6 +191,39 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
               this.Currencies.get(elt.key)?.value;
         });
         country = { ...country, languages: object, currencies: object1 };
+      })
+      .unsubscribe();
+    this.store.dispatch(modifyCountryInfo({ country: country }));
+  }
+
+  addPhoto($event: Event) {
+    if (!this.isImage(this.urlInput)) return;
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
+    let country!: Country;
+    this.country$
+      .subscribe((data) => {
+        country = { ...data, images: [...data.images, this.urlInput] };
+      })
+      .unsubscribe();
+    this.store.dispatch(modifyCountryInfo({ country: country }));
+    (
+      ($event.currentTarget as HTMLElement).parentElement
+        ?.firstChild as HTMLInputElement
+    ).value = '';
+  }
+
+  isImage(url: string) {
+    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+  }
+
+  deletePic(index: number) {
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
+    let country!: Country;
+    this.country$
+      .subscribe((data) => {
+        let images = [...data.images];
+        images.splice(index, 1);
+        country = { ...data, images: [...images] };
       })
       .unsubscribe();
     this.store.dispatch(modifyCountryInfo({ country: country }));

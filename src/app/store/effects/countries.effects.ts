@@ -22,8 +22,17 @@ export class CountryEffects {
       ofType(initializeState),
       switchMap(() =>
         this.countriesService.getAllCountries().pipe(
-          map((countries) => loadCountriesSuccess({ payload: countries })),
-          catchError((error) => of(loadCountriesFailure({ error })))
+          map(
+            (countries) =>
+              loadCountriesSuccess({
+                payload: countries.map((data) => {
+                  data.images = [];
+                  data.images.push(data.flags.svg);
+                  return data;
+                }),
+              }),
+            catchError((error) => of(loadCountriesFailure({ error })))
+          )
         )
       )
     )
