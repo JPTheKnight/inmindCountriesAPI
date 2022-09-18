@@ -29,3 +29,8 @@ export const loadCountriesFailure = createAction(
   '[COUNTRY] Country Load Failure',
   props<{ error: string }>()
 );
+
+export const modifyCountryInfo = createAction(
+  '[COUNTRY] Country Edit Info',
+  props<{ country: Country }>()
+);

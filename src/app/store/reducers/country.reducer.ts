@@ -4,6 +4,7 @@ import {
   initializeState,
   loadCountriesFailure,
   loadCountriesSuccess,
+  modifyCountryInfo,
 } from '../actions/countries.actions';
 
 export interface CountryState {
@@ -34,5 +35,13 @@ export const countryReducer = createReducer(
     ...state,
     error: error,
     status: 'error',
+  })),
+  on(modifyCountryInfo, (state, { country }) => ({
+    ...state,
+    countries: [...state.countries].map((elt) => {
+      return elt.name.common.toLowerCase() === country.name.common.toLowerCase()
+        ? country
+        : elt;
+    }),
   }))
 );

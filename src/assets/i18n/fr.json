@@ -55,10 +55,11 @@
     "capital": "Capitale",
     "languages": "Langues",
     "currency": "Devises",
-    "edit": "Modifier",
     "seeAlso": "Voir également",
     "save": "Enregistrer",
     "cancel": "Annuler",
-    "inputsFilled": "Tous les champs de saisie ne sont pas remplis."
+    "inputsFilled": "Tous les champs de saisie ne sont pas remplis.",
+    "modifyInfo": "Modifier les informations pour {{name}}",
+    "modifyImages": "Editar las imágenes de {{name}}"
   }
 }

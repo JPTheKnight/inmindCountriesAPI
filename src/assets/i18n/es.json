@@ -56,9 +56,10 @@
     "languages": "Idiomas",
     "currency": "Monedas",
     "seeAlso": "Ver también",
-    "edit": "Editar",
     "save": "Ahorrar",
     "cancel": "Cancelar",
-    "inputsFilled": "No todos los campos de entrada están llenos."
+    "inputsFilled": "No todos los campos de entrada están llenos.",
+    "modifyInfo": "Editar la información de {{name}}",
+    "modifyImages": "Editar la información de {{name}}"
   }
 }

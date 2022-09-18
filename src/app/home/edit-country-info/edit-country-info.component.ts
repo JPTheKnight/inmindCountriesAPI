@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CountriesService } from 'src/app/countries.service';
 import { Country, Currs, Langs } from 'src/app/models/country';
 import { ActivatedRoute } from '@angular/router';
@@ -8,17 +8,26 @@ import {
   FormGroup,
   FormControl,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/country.state';
-import { selectCountry } from 'src/app/store/selectors/countries.selector';
+import {
+  selectAllCountries,
+  selectCountry,
+} from 'src/app/store/selectors/countries.selector';
+import {
+  initializeState,
+  modifyCountryInfo,
+} from 'src/app/store/actions/countries.actions';
 
 @Component({
   selector: 'app-edit-country-info',
   templateUrl: './edit-country-info.component.html',
   styleUrls: ['./edit-country-info.component.scss'],
 })
-export class EditCountryInfoComponent implements OnInit {
+export class EditCountryInfoComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+
   selectedRegion: string = '';
   param: string = this.route.snapshot.paramMap.get('name')!;
   country$: Observable<Country> = this.store.select(selectCountry(this.param));
@@ -33,12 +42,12 @@ export class EditCountryInfoComponent implements OnInit {
   curr_id: number = 0;
 
   editForm = this.fb.group({
-    Region: ['', [Validators.required]],
-    Population: ['', [Validators.required]],
-    Area: ['', [Validators.required]],
-    Capital: ['', [Validators.required]],
-    Languages: this.Languages,
-    Currencies: this.Currencies,
+    region: ['', [Validators.required]],
+    population: ['', [Validators.required]],
+    area: ['', [Validators.required]],
+    capital: ['', [Validators.required]],
+    languages: this.Languages,
+    currencies: this.Currencies,
   });
 
   constructor(
@@ -49,48 +58,64 @@ export class EditCountryInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.country$.subscribe((c) => {
-      this.editForm.patchValue({
-        Region: c.region,
-        Population: c.population,
-        Area: c.area,
-        Capital: c.capital,
-      });
-      for (let i = 0; i < Object.keys(c.languages).length; i++) {
-        this.languages.push({
-          key: Object.keys(c.languages)[i],
-          value: Object.values(c.languages)[i],
-        });
-      }
-      this.languages.forEach((formItem) => {
-        const formControl = this.fb.control(formItem.value, [
-          Validators.required,
-        ]);
-        this.Languages?.addControl(formItem.key, formControl);
-      });
-      for (let i = 0; i < Object.keys(c.currencies).length; i++) {
-        this.currencies.push({
-          key: Object.keys(c.currencies)[i],
-          symbol: Object.values(c.currencies)[i].symbol,
-          name: Object.values(c.currencies)[i].name,
-        });
-      }
-      this.currencies.forEach((formItem) => {
-        this.Currencies_Data.push(
-          this.fb.group(
-            {
-              symbol: [formItem.symbol, [Validators.required]],
-              name: [formItem.name, [Validators.required]],
-            },
-            [Validators.required]
-          )
-        );
-        this.Currencies?.addControl(
-          formItem.key,
-          this.Currencies_Data[this.Currencies_Data.length - 1]
-        );
-      });
-    });
+    this.subscriptions.push(
+      this.store.select(selectAllCountries).subscribe((data) => {
+        if (data.length == 0) {
+          this.store.dispatch(initializeState());
+        }
+      })
+    );
+
+    this.subscriptions.push(
+      this.country$.subscribe((c) => {
+        if (c != undefined) {
+          this.editForm.patchValue({
+            region: c.region,
+            population: c.population,
+            area: c.area,
+            capital: c.capital,
+          });
+          for (let i = 0; i < Object.keys(c.languages).length; i++) {
+            this.languages.push({
+              key: Object.keys(c.languages)[i],
+              value: Object.values(c.languages)[i],
+            });
+          }
+          this.languages.forEach((formItem) => {
+            const formControl = this.fb.control(formItem.value, [
+              Validators.required,
+            ]);
+            this.Languages?.addControl(formItem.key, formControl);
+          });
+          for (let i = 0; i < Object.keys(c.currencies).length; i++) {
+            this.currencies.push({
+              key: Object.keys(c.currencies)[i],
+              symbol: Object.values(c.currencies)[i].symbol,
+              name: Object.values(c.currencies)[i].name,
+            });
+          }
+          this.currencies.forEach((formItem) => {
+            this.Currencies_Data.push(
+              this.fb.group(
+                {
+                  symbol: [formItem.symbol, [Validators.required]],
+                  name: [formItem.name, [Validators.required]],
+                },
+                [Validators.required]
+              )
+            );
+            this.Currencies?.addControl(
+              formItem.key,
+              this.Currencies_Data[this.Currencies_Data.length - 1]
+            );
+          });
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
   }
 
   createNewLanguageInput(isFirst: boolean, itemKey: string) {
@@ -142,5 +167,29 @@ export class EditCountryInfoComponent implements OnInit {
       this.Currencies.removeControl(itemKey);
       this.Currencies_Data.splice(index, 1);
     }
+  }
+
+  save() {
+    this.subscriptions.forEach((elt) => elt.unsubscribe());
+    let country!: Country;
+    this.country$
+      .subscribe((data) => {
+        country = { ...data, ...this.editForm.value };
+        let object: any = { ...data.languages };
+        this.languages.forEach((elt) => {
+          if (elt.key.toLowerCase().startsWith('lang'))
+            object[this.Languages.get(elt.key)?.value.toLowerCase()] =
+              this.Languages.get(elt.key)?.value;
+        });
+        let object1: any = { ...data.currencies };
+        this.currencies.forEach((elt) => {
+          if (elt.key.toLowerCase().startsWith('curr'))
+            object1[this.Currencies.get(elt.key)?.value.name.toLowerCase()] =
+              this.Currencies.get(elt.key)?.value;
+        });
+        country = { ...country, languages: object, currencies: object1 };
+      })
+      .unsubscribe();
+    this.store.dispatch(modifyCountryInfo({ country: country }));
   }
 }

@@ -3,7 +3,7 @@
   *ngFor="let country of countries$ | async"
   routerLink="/countries/{{ country.name.common }}"
 >
-  <img src="{{ country.flags.svg }}" />
+  <img alt="flag" src="{{ country.flags.svg }}" />
   <span class="info">
     <span
       ><b>{{ country.name.common }}</b></span

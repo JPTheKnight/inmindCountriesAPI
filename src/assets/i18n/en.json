@@ -56,9 +56,10 @@
     "languages": "Languages",
     "currency": "Currencies",
     "seeAlso": "See also",
-    "edit": "Edit",
     "save": "Save",
     "cancel": "Cancel",
-    "inputsFilled": "Not all input fields are filled."
+    "inputsFilled": "Not all input fields are filled.",
+    "modifyInfo": "Edit {{name}}'s info",
+    "modifyImages": "Edit {{name}}'s images"
   }
 }

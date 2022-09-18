@@ -1,9 +1,13 @@
 <nav>
   <button (click)="onOpenMenu()">
-    <img class="hamburger" src="../../assets/img/hamburger-svgrepo-com.svg" />
+    <img
+      alt="hamburger"
+      class="hamburger"
+      src="../../assets/img/hamburger-svgrepo-com.svg"
+    />
   </button>
   <div class="logo">
-    <img src="../../assets/img/earth-globe-svgrepo-com.svg" />
+    <img alt="logo" src="../../assets/img/earth-globe-svgrepo-com.svg" />
     <span><b>COUNTRIES API</b></span>
   </div>
   <ul>
@@ -51,7 +55,7 @@
   <div class="side-menu">
     <div>{{ "HomeSection.menu" | transloco }}</div>
     <button (click)="onCloseMenu()">
-      <img src="../../assets/img/x-svgrepo-com.svg" />
+      <img alt="X" src="../../assets/img/x-svgrepo-com.svg" />
     </button>
     <span routerLink="/countries/">{{ "HomeSection.home" | transloco }}</span>
     <span>{{ "HomeSection.about" | transloco }}</span>
