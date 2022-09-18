@@ -154,6 +154,9 @@
           placeholder="{{ 'DetailsSection.inputUrl' | transloco }}"
           [(ngModel)]="urlInput"
         />
+        <p *ngIf="wrongURL">
+          The URL should end in .png, .jpg or any image format.
+        </p>
         <button
           type="submit"
           [disabled]="urlInput.trim() == ''"

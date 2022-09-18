@@ -67,9 +67,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         console.log(
           this.jwtHelper.getTokenExpirationDate(login.Login.AccessToken)
         );
+        this.loginForm.get('Password')?.setValue('');
         this.router.navigate(['/countries']);
       },
-      (error) => (this.loginError = true)
+      (error) => {
+        this.loginError = true;
+        this.loginForm.get('Password')?.setValue('');
+      }
     );
   }
 

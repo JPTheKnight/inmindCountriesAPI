@@ -16,9 +16,8 @@ export class ArrayToStringPipe implements PipeTransform {
           let currInter: Currs = Object.values(value)[i] as Currs;
           final += currInter.symbol + ', ' + currInter.name + ' / ';
         }
+        final = final.slice(0, -2);
       }
-
-      final = final.slice(0, -2);
     }
 
     return final;

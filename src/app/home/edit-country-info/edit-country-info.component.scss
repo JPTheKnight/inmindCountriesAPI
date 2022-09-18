@@ -197,6 +197,7 @@
       .add-photo-container {
         margin-left: 30px;
         display: flex;
+        position: relative;
         input {
           height: 35px;
           width: 70%;
@@ -205,6 +206,12 @@
           border-radius: 5px;
           border: 1px rgb(110, 110, 110) solid;
           background-color: rgb(226, 226, 226);
+        }
+        p {
+          position: absolute;
+          bottom: -5px;
+          font-size: 0.7rem;
+          color: red;
         }
         button {
           width: 70.3px;
@@ -218,7 +225,7 @@
           color: rgb(255, 255, 255);
           border: none;
           margin-left: 10px;
-          margin-bottom: 20px;
+          margin-bottom: 30px;
 
           &:hover {
             cursor: pointer;
@@ -438,6 +445,16 @@
           input {
             width: 58%;
             height: 30px;
+            margin-bottom: 40px;
+          }
+          p {
+            position: absolute;
+            bottom: 0px;
+            font-size: 0.6rem;
+            color: red;
+            word-wrap: break-word;
+            width: 80vw;
+            line-height: 10px;
           }
           button {
             height: 30px;

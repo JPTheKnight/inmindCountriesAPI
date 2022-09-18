@@ -52,6 +52,7 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
   });
 
   urlInput: string = '';
+  wrongURL = false;
 
   constructor(
     private countriesServices: CountriesService,
@@ -197,7 +198,10 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
   }
 
   addPhoto($event: Event) {
-    if (!this.isImage(this.urlInput)) return;
+    if (!this.isImage(this.urlInput)) {
+      this.wrongURL = true;
+      return;
+    }
     this.subscriptions.forEach((elt) => elt.unsubscribe());
     let country!: Country;
     this.country$
@@ -210,6 +214,7 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
       ($event.currentTarget as HTMLElement).parentElement
         ?.firstChild as HTMLInputElement
     ).value = '';
+    this.wrongURL = false;
   }
 
   isImage(url: string) {
