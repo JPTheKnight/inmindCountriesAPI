@@ -47,18 +47,7 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const countryDialog = document.getElementById(
-      'country-dialog'
-    )! as HTMLElement;
-    document.addEventListener('click', (e) => {
-      if (
-        countryDialog != null &&
-        (e.target as HTMLElement)?.closest('.country-dialog') == null &&
-        (e.target as HTMLElement)?.closest('.countries-av') == null
-      ) {
-        countryDialog.style.display = 'none';
-      }
-    });
+    (document.querySelector('.body') as HTMLElement).style.overflow = 'hidden';
 
     if (this.auth.isAdmin()) {
       this.ngxPerm.loadPermissions(['ADMIN']);
@@ -76,6 +65,8 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
 
     this.country$.subscribe((data) => {
       if (data != undefined) {
+        (document.querySelector('.body') as HTMLElement).style.overflowY =
+          'scroll';
         data.images.forEach((elt) =>
           this.imageObject.push({ image: elt, thumbImage: elt })
         );

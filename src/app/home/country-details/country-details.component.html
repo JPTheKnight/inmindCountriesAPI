@@ -1,6 +1,10 @@
+<div class="spinner-bg" *ngIf="(country$ | async) == undefined">
+  <div class="spinner"></div>
+</div>
 <div class="body">
   <div class="images" id="images">
     <ng-image-slider
+      *ngIf="this.imageObject.length !== 0"
       id="carousel"
       [images]="imageObject"
       [infinite]="true"
@@ -11,9 +15,6 @@
       (imageClick)="imageClick()"
       (lightboxClose)="lightboxClose()"
     ></ng-image-slider>
-  </div>
-  <div class="spinner-bg" *ngIf="(country$ | async) == undefined">
-    <div class="spinner"></div>
   </div>
 
   <div class="info-container" id="info-container">

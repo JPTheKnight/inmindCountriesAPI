@@ -161,7 +161,7 @@
           [(ngModel)]="urlInput"
         />
         <p *ngIf="wrongURL">
-          The URL should end in .png, .jpg or any image format.
+          {{ "DetailsSection.wrongUrl" | transloco }}
         </p>
         <button
           type="submit"

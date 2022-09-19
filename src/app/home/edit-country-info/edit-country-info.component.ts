@@ -1,25 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CountriesService } from 'src/app/countries.service';
-import { Country, Currs, Langs } from 'src/app/models/country';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  Validators,
-  FormBuilder,
-  FormGroup,
-  FormControl,
-} from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { Country, Currs, Langs } from 'src/app/models/country';
+import {
+  initializeState,
+  modifyCountryInfo,
+} from 'src/app/store/actions/countries.actions';
 import { AppState } from 'src/app/store/country.state';
 import {
   selectAllCountries,
   selectCountry,
 } from 'src/app/store/selectors/countries.selector';
-import {
-  initializeState,
-  modifyCountryInfo,
-} from 'src/app/store/actions/countries.actions';
-import { NgImageSliderComponent } from 'ng-image-slider';
 
 @Component({
   selector: 'app-edit-country-info',
@@ -53,9 +46,9 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
 
   urlInput: string = '';
   wrongURL = false;
+  saved = false;
 
   constructor(
-    private countriesServices: CountriesService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private store: Store<AppState>
@@ -181,9 +174,16 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
         country = { ...data, ...this.editForm.value };
         let object: any = { ...data.languages };
         this.languages.forEach((elt) => {
-          if (elt.key.toLowerCase().startsWith('lang'))
+          if (elt.key.toLowerCase().startsWith('lang')) {
+            if (
+              Object.values(this.languages).includes(
+                this.Languages.get(elt.key)?.value
+              )
+            )
+              return;
             object[this.Languages.get(elt.key)?.value.toLowerCase()] =
               this.Languages.get(elt.key)?.value;
+          }
         });
         let object1: any = { ...data.currencies };
         this.currencies.forEach((elt) => {
@@ -195,6 +195,7 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
       })
       .unsubscribe();
     this.store.dispatch(modifyCountryInfo({ country: country }));
+    this.saved = true;
   }
 
   addPhoto($event: Event) {

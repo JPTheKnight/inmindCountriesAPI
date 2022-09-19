@@ -62,6 +62,7 @@
     "modifyInfo": "Modifier les informations pour {{name}}",
     "modifyImages": "Modifier les images",
     "add": "Ajouter",
-    "inputUrl": "URL de l'image d'entrée"
+    "inputUrl": "URL de l'image d'entrée",
+    "wrongUrl": "L'URL doit se terminer par .png, .jpg ou n'importe quel format d'image."
   }
 }

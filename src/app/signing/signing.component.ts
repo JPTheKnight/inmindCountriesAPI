@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-signing',
@@ -7,10 +7,9 @@ import { TranslocoService } from '@ngneat/transloco';
   styleUrls: ['./signing.component.scss'],
 })
 export class SigningComponent implements OnInit {
-  constructor(private translocoService: TranslocoService) {}
+  constructor(private auth: AuthenticationService) {}
 
   ngOnInit(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    this.auth.deleteToken();
   }
 }

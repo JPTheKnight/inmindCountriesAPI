@@ -2,20 +2,18 @@
   position: relative;
   height: 40px;
   width: 118px;
-  border: 1px solid rgb(238, 238, 238);
+  border: 1px solid #eee;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border-radius: 10px;
   z-index: 9999;
   font-family: "ArvoRegular", Arial, Helvetica, sans-serif;
-
   img {
     height: 20px;
     object-fit: contain;
     margin-left: 10px;
     margin-right: 10px;
-
     &:last-child {
       height: 10px;
     }
@@ -26,10 +24,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   &:hover {
     cursor: pointer;
-    border: 1px solid rgb(128, 128, 128);
+    border: 1px solid #808080;
   }
 }
 .lang-dialog {
@@ -37,8 +34,8 @@
   position: absolute;
   grid-template-columns: 1;
   flex-direction: column;
-  top: 00px;
-  right: 00px;
+  top: 0px;
+  right: 0px;
   background-color: white;
   height: fit-content;
   padding: 10px 0;
@@ -53,26 +50,21 @@
     display: flex;
     align-items: center;
     padding: 10px 10px;
-    //background-color: rgb(226, 226, 226);
-
     img {
       height: 25px;
       object-fit: contain;
       margin-right: 10px;
-
       &:last-child {
         height: 10px;
       }
     }
-
     div {
       font-size: 1.2rem;
       font-family: "ArvoRegular", Arial, Helvetica, sans-serif;
     }
-
     &:hover {
       cursor: pointer;
-      background-color: rgb(199, 199, 199);
+      background-color: #c7c7c7;
     }
   }
 }

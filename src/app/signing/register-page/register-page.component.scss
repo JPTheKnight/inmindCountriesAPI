@@ -5,14 +5,12 @@
   display: flex;
   flex-direction: column;
   height: fit-content;
-
   .title {
     font-size: 1.75rem;
     margin-bottom: 40px;
     margin-top: 30px;
     margin-right: 30px;
   }
-
   .input-container {
     display: flex;
     flex-direction: column;
@@ -32,20 +30,17 @@
       border: 1px solid #bfbfbf;
       border-radius: 7px;
       font-family: "ArvoRegular", Arial, sans-serif;
-
       &:focus {
         outline: none !important;
-        border: 1px solid rgb(69, 69, 255);
+        border: 1px solid #4545ff;
       }
     }
   }
-
   .checkbox-container {
     margin-left: 15px;
     margin-top: -5px;
     display: flex;
     align-items: center;
-
     input {
       margin-right: 10px;
       width: 15px;
@@ -56,11 +51,9 @@
       font-size: 1rem;
     }
   }
-
   button {
     width: 140.3px;
     height: 38.78px;
-
     background: #005794;
     border-radius: 6px;
     font-size: 12px;
@@ -69,31 +62,26 @@
     color: white;
     border: none;
     margin-top: 60px;
-
     &:hover {
       cursor: pointer;
       opacity: 0.8;
     }
-
     &:disabled {
       cursor: unset;
       opacity: 0.7;
     }
   }
-
   .signin {
     margin-top: 10px;
     margin-bottom: 50px;
     a {
-      color: rgb(84, 84, 177);
-
+      color: #5454b1;
       &:hover {
         cursor: pointer;
       }
     }
   }
 }
-
 @media screen and (max-width: 1040px) {
   .components {
     .title {

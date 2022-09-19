@@ -62,6 +62,7 @@
     "modifyInfo": "Edit {{name}}'s info",
     "modifyImages": "Edit images",
     "add": "Add",
-    "inputUrl": "Input image URL"
+    "inputUrl": "Input image URL",
+    "wrongUrl": "The URL should end in .png, .jpg or any image format."
   }
 }

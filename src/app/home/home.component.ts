@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    localStorage.clear();
+    this.auth.deleteToken();
   }
 
   onCloseMenu() {
@@ -39,8 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
     this.auth.logoutUser(logout).subscribe(
       () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        this.auth.deleteToken();
         this.ngxPerm.removePermission('ADMIN');
         this.router.navigate(['/login']);
       },
