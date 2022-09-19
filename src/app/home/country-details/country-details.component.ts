@@ -1,21 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CountriesService } from 'src/app/countries.service';
-import { Country } from 'src/app/models/country';
-import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { Country } from 'src/app/models/country';
+import { initializeState } from 'src/app/store/actions/countries.actions';
 import {
   selectAllCountries,
   selectCountry,
 } from 'src/app/store/selectors/countries.selector';
 import { AppState } from '../../store/country.state';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { AuthenticationService } from 'src/app/authentication.service';
-import { initializeState } from 'src/app/store/actions/countries.actions';
-import { TOUCH_BUFFER_MS } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-country-details',
@@ -42,7 +38,6 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private countriesServices: CountriesService,
     private router: Router,
     private store: Store<AppState>,
     private ngxPerm: NgxPermissionsService,

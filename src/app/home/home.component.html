@@ -12,7 +12,11 @@
   </div>
   <ul>
     <li routerLink="/countries/">{{ "HomeSection.home" | transloco }}</li>
-    <li>{{ "HomeSection.about" | transloco }}</li>
+    <li>
+      <a href="https://restcountries.com/" target="_blank">{{
+        "HomeSection.about" | transloco
+      }}</a>
+    </li>
     <li>{{ "HomeSection.contact" | transloco }}</li>
   </ul>
   <app-language-dropdown class="lang-dropdown"></app-language-dropdown>

@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CountriesService } from '../../countries.service';
-import { Country } from '../../models/country';
-import { Observable, Subject, of, Subscription } from 'rxjs';
-import { switchMap, filter, map, tap } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Country } from '../../models/country';
 import { initializeState } from '../../store/actions/countries.actions';
+import { AppState } from '../../store/country.state';
 import {
   selectAllCountries,
   selectSpecificRegion,
 } from '../../store/selectors/countries.selector';
-import { AppState } from '../../store/country.state';
 
 @Component({
   selector: 'app-main',
@@ -17,10 +16,7 @@ import { AppState } from '../../store/country.state';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
-  constructor(
-    private countriesService: CountriesService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   searchTerms: string = '';
   totalCountries: number = 0;

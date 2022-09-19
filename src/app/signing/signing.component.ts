@@ -10,6 +10,7 @@ export class SigningComponent implements OnInit {
   constructor(private translocoService: TranslocoService) {}
 
   ngOnInit(): void {
-    localStorage.clear();
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   }
 }

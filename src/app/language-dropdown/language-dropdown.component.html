@@ -1,13 +1,13 @@
 <div class="lang" (click)="showLanguages($event)">
-  <img alt="language" src="{{ this.langdrop.chosenLang.img }}" />
-  <div>{{ this.langdrop.chosenLang.lang }}</div>
+  <img alt="language" src="{{ this.langdrop.getChosenLang().img }}" />
+  <div>{{ this.langdrop.getChosenLang().lang }}</div>
   <img alt="arrow" src="../../assets/img/down-arrow-svgrepo-com.svg" />
 </div>
 <div class="lang-dialog" id="lang-dialog">
   <div
     class="item"
-    *ngFor="let item of this.langdrop.otherLangs; index as i"
-    (click)="changeLanguage(item.lang, item.img, i)"
+    *ngFor="let item of this.langdrop.getRestLanguages()"
+    (click)="changeLanguage(this.langdrop.otherLangs.indexOf(item))"
   >
     <img alt="language" src="{{ item.img }}" />
     <div>{{ item.lang }}</div>

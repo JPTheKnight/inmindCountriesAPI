@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
 import { LangdropService } from './langdrop.service';
 
 @Component({
@@ -8,12 +7,16 @@ import { LangdropService } from './langdrop.service';
   styleUrls: ['./language-dropdown.component.scss'],
 })
 export class LanguageDropdownComponent implements OnInit {
-  constructor(
-    private translocoService: TranslocoService,
-    public langdrop: LangdropService
-  ) {}
+  constructor(public langdrop: LangdropService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('langChosen') === null)
+      this.langdrop.changeLanguage(0);
+    else
+      this.langdrop.changeLanguage(
+        Number.parseInt(localStorage.getItem('langChosen')!)
+      );
+  }
 
   showLanguages($event: Event) {
     const langDialog = ($event.currentTarget as HTMLElement).parentElement
@@ -29,11 +32,8 @@ export class LanguageDropdownComponent implements OnInit {
     });
   }
 
-  changeLanguage(lang: string, img: string, i: number) {
-    this.langdrop.otherLangs.push(this.langdrop.chosenLang);
-    this.langdrop.chosenLang = { lang, img };
-    this.langdrop.otherLangs.splice(i, 1);
-    this.translocoService.setActiveLang(lang.toLowerCase());
+  changeLanguage(i: number) {
+    this.langdrop.changeLanguage(i);
     const langDialog = document.getElementById('lang-dialog');
     if (langDialog != null) langDialog.style.display = 'none';
   }

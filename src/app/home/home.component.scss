@@ -47,6 +47,11 @@ nav {
       color: #555555;
       margin-right: 50px;
       transition: all 0.3s;
+      text-decoration: none;
+      a {
+        text-decoration: none;
+        color: #555555;
+      }
 
       &:hover {
         cursor: pointer;

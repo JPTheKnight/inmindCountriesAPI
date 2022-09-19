@@ -18,6 +18,7 @@
             <input
               name="region"
               type="text"
+              id="region"
               [value]="(country$ | async)?.region"
               formControlName="region"
             />
@@ -33,6 +34,7 @@
             <input
               name="population"
               type="number"
+              id="population"
               [value]="(country$ | async)?.population"
               formControlName="population"
             />
@@ -46,6 +48,7 @@
             <input
               type="number"
               name="area"
+              id="area"
               [value]="(country$ | async)?.area"
               formControlName="area"
             />
@@ -62,6 +65,7 @@
             <input
               name="capital"
               type="text"
+              id="capital"
               [value]="(country$ | async)?.capital"
               formControlName="capital"
             />
@@ -81,6 +85,7 @@
                 ><input
                   name="language"
                   type="text"
+                  id="language"
                   [value]="langItem.value"
                   [formControlName]="langItem.key"
                   placeholder="new language" /><img
@@ -116,6 +121,7 @@
                 <input
                   name="currency"
                   type="text"
+                  id="currency"
                   [value]="currItem.name"
                   [formControlName]="'name'"
                   placeholder="new currency" /><img

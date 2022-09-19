@@ -6,7 +6,7 @@
       placeholder="{{ 'MainSection.inputSearch' | transloco }}"
       (input)="search(searchBox.value)"
     />
-    <button class="filter" (click)="showFilters()">
+    <button class="filter" (click)="showFilters()" name="filter">
       <svg
         version="1.1"
         id="Layer_1"
@@ -55,7 +55,7 @@
         </button>
       </mat-menu>
     </div>
-    <button class="search" (click)="search(searchBox.value)">
+    <button class="search" (click)="search(searchBox.value)" name="search">
       <svg
         version="1.1"
         id="Capa_1"
