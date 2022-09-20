@@ -23,6 +23,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
     ]),
     Password: new FormControl('', [Validators.required]),
+    RememberMe: new FormControl(false),
   });
 
   subscription?: Subscription;
@@ -33,7 +34,20 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private jwtHelper: JwtHelperService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (
+      localStorage.getItem('username') !== null &&
+      localStorage.getItem('password') !== null
+    ) {
+      this.loginForm
+        .get('Username')
+        ?.setValue(localStorage.getItem('username'));
+      this.loginForm
+        .get('Password')
+        ?.setValue(window.atob(localStorage.getItem('password')!));
+      this.login();
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -68,6 +82,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           this.jwtHelper.getTokenExpirationDate(login.Login.AccessToken)
         );
         this.loginForm.get('Password')?.setValue('');
+        if (this.loginForm.get('RememberMe')?.value) {
+          localStorage.setItem('username', this.loginUser.Username);
+          localStorage.setItem(
+            'password',
+            window.btoa(this.loginUser.Password)
+          );
+        }
         this.router.navigate(['/countries']);
       },
       (error) => {
