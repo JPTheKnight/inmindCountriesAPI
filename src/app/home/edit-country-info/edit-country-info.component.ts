@@ -196,6 +196,10 @@ export class EditCountryInfoComponent implements OnInit, OnDestroy {
       .unsubscribe();
     this.store.dispatch(modifyCountryInfo({ country: country }));
     this.saved = true;
+
+    setTimeout(() => {
+      this.saved = false;
+    }, 5000);
   }
 
   addPhoto($event: Event) {

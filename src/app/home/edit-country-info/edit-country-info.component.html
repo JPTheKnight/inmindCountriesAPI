@@ -136,9 +136,15 @@
 
       <p
         *ngIf="this.editForm.invalid"
-        style="color: red; font-size: 0.6rem; margin-left: 30px"
+        style="color: red; font-size: 0.7rem; margin-left: 30px"
       >
         {{ "DetailsSection.inputsFilled" | transloco }}
+      </p>
+      <p
+        *ngIf="this.saved"
+        style="color: green; font-size: 0.7rem; margin-left: 30px"
+      >
+        {{ "DetailsSection.saved" | transloco }}
       </p>
       <button type="submit" [disabled]="this.editForm.invalid" (click)="save()">
         <b>{{ "DetailsSection.save" | transloco }}</b>

@@ -22,12 +22,5 @@ import { LangdropModule } from '../language-dropdown/langdrop.module';
     LangdropModule,
   ],
   bootstrap: [SigningComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
 })
 export class SigningModule {}

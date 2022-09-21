@@ -9,7 +9,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
@@ -17,10 +17,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.auth.deleteToken();
-  }
 
   onCloseMenu() {
     const sideMenu = document.getElementById('side-menu-bg');
@@ -40,6 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.auth.logoutUser(logout).subscribe(
       () => {
         this.auth.deleteToken();
+        localStorage.setItem('remember', '0');
+        sessionStorage.removeItem('remember');
         this.ngxPerm.removePermission('ADMIN');
         this.router.navigate(['/login']);
       },

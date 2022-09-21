@@ -32,20 +32,20 @@
       border-top-right-radius: 6px;
       overflow-y: auto;
       &::-webkit-scrollbar {
-        width: 5px;
+        width: 7px;
       }
       &::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0);
       }
       &::-webkit-scrollbar-thumb {
         background-color: rgba(0, 73, 141, 0.726);
-        border-radius: 5px;
+        border-radius: 3px;
       }
-    }
-    .lang-dropdown {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      .lang-dropdown {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+      }
     }
   }
 }

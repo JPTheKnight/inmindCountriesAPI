@@ -79,6 +79,10 @@
     <label for="admin">{{ "RegisterSection.isAdmin" | transloco }}</label>
   </div>
 
+  <div class="register-error" *ngIf="this.registerError">
+    {{ "RegisterSection.errorRegister" | transloco }}
+  </div>
+
   <button type="submit" [disabled]="regForm.invalid" (click)="register()">
     <b>{{ "RegisterSection.register" | transloco }}</b>
   </button>

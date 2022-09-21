@@ -24,7 +24,8 @@
     "register": "S'inscrire",
     "haveAnAccount": "Vous avez déjà un compte?",
     "enterFirstName": "Entrez votre prénom",
-    "enterLastName": "Entrez votre nom"
+    "enterLastName": "Entrez votre nom",
+    "errorRegister": "Erreur lors de la création de l'e-mail. L'e-mail existe peut-être déjà."
   },
   "HomeSection": {
     "home": "Accueil",
@@ -63,6 +64,7 @@
     "modifyImages": "Modifier les images",
     "add": "Ajouter",
     "inputUrl": "URL de l'image d'entrée",
-    "wrongUrl": "L'URL doit se terminer par .png, .jpg ou n'importe quel format d'image."
+    "wrongUrl": "L'URL doit se terminer par .png, .jpg ou n'importe quel format d'image.",
+    "saved": "Données enregistrées avec succès"
   }
 }

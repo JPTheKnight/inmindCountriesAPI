@@ -4,7 +4,7 @@
   position: relative;
   .white-bg {
     &::-webkit-scrollbar {
-      width: 5px;
+      width: 7px;
     }
     &::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0);
@@ -13,7 +13,7 @@
     }
     &::-webkit-scrollbar-thumb {
       background-color: rgba(75, 75, 75, 0.726);
-      border-radius: 5px;
+      border-radius: 3px;
     }
     height: 80vh;
     position: absolute;

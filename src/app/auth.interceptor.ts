@@ -1,25 +1,21 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { Logout } from './models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private route: Router,
     private auth: AuthenticationService,
-    private inject: Injector,
     private jwt: JwtHelperService
   ) {}
 
@@ -37,10 +33,12 @@ export class AuthInterceptor implements HttpInterceptor {
             'Bearer ' + accessToken
           ),
         });
+        console.log('Token Accepted');
         return next.handle(cloned);
       } else {
         const aToken = localStorage.getItem('access_token');
         localStorage.removeItem('access_token');
+        console.log('Refreshing token');
         return this.auth
           .refreshToken(localStorage.getItem('refresh_token')!)
           .pipe(
@@ -63,22 +61,7 @@ export class AuthInterceptor implements HttpInterceptor {
               return throwError(error);
             })
           );
-      } /*.pipe(
-        catchError((err) => {
-          console.log(err);
-          if (err instanceof HttpErrorResponse) {
-            if (err.status === 401 || err.status === 403) {
-              return this.handleRefreshToken(request, next);
-            }
-            if (err.status === 404) {
-              this.route.navigate(['/error']);
-            }
-          }
-
-          // return the error back to the caller
-          return throwError(err);
-        })
-      );*/
+      }
     } else {
       return next.handle(request);
     }

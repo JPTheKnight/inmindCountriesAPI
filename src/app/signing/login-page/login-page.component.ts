@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
@@ -34,20 +34,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private jwtHelper: JwtHelperService
   ) {}
 
-  ngOnInit(): void {
-    if (
-      localStorage.getItem('username') !== null &&
-      localStorage.getItem('password') !== null
-    ) {
-      this.loginForm
-        .get('Username')
-        ?.setValue(localStorage.getItem('username'));
-      this.loginForm
-        .get('Password')
-        ?.setValue(window.atob(localStorage.getItem('password')!));
-      this.login();
-    }
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -83,12 +70,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         );
         this.loginForm.get('Password')?.setValue('');
         if (this.loginForm.get('RememberMe')?.value) {
-          localStorage.setItem('username', this.loginUser.Username);
-          localStorage.setItem(
-            'password',
-            window.btoa(this.loginUser.Password)
-          );
+          localStorage.setItem('remember', '1');
+        } else {
+          localStorage.setItem('remember', '0');
+          sessionStorage.setItem('remember', '');
         }
+
         this.router.navigate(['/countries']);
       },
       (error) => {

@@ -32,6 +32,8 @@ export class RegisterPageComponent implements OnInit {
     }
   );
 
+  registerError: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private auth: AuthenticationService,
@@ -125,7 +127,10 @@ export class RegisterPageComponent implements OnInit {
       : 'user';
     this.auth.createUser(this.registerUser).subscribe(
       () => this.router.navigate(['/login']),
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.registerError = true;
+      }
     );
   }
 }

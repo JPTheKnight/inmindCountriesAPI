@@ -62,7 +62,11 @@
       <img alt="X" src="../../assets/img/x-svgrepo-com.svg" />
     </button>
     <span routerLink="/countries/">{{ "HomeSection.home" | transloco }}</span>
-    <span>{{ "HomeSection.about" | transloco }}</span>
+    <span
+      ><a href="https://restcountries.com/" target="_blank">{{
+        "HomeSection.about" | transloco
+      }}</a></span
+    >
     <span>{{ "HomeSection.contact" | transloco }}</span>
     <app-language-dropdown class="lang-dropdown"></app-language-dropdown>
     <span class="logout" (click)="logout()">{{

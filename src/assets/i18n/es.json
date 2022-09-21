@@ -24,7 +24,8 @@
     "register": "Registro",
     "haveAnAccount": "¿Ya tienes una cuenta?",
     "enterFirstName": "Ponga su primer nombre",
-    "enterLastName": "Ingresa tu apellido"
+    "enterLastName": "Ingresa tu apellido",
+    "errorRegister": "Error al crear el correo electrónico. Es posible que el correo electrónico ya exista."
   },
   "HomeSection": {
     "home": "Hogar",
@@ -63,6 +64,7 @@
     "modifyImages": "Editar imágenes",
     "add": "Agregar",
     "inputUrl": "Introduzca la URL de la imagen",
-    "wrongUrl": "La URL debe terminar en .png, .jpg o cualquier formato de imagen."
+    "wrongUrl": "La URL debe terminar en .png, .jpg o cualquier formato de imagen.",
+    "saved": "Datos guardados exitosamente"
   }
 }

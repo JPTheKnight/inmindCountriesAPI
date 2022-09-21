@@ -15,8 +15,9 @@ import { countryReducer } from './store/reducers/country.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CountryEffects } from './store/effects/countries.effects';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,11 @@ import { TranslocoRootModule } from './transloco-root.module';
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   exports: [],
 })

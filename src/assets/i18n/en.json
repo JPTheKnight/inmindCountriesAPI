@@ -24,7 +24,8 @@
     "register": "Register",
     "haveAnAccount": "Already have an account?",
     "enterFirstName": "Enter your first name",
-    "enterLastName": "Enter your last name"
+    "enterLastName": "Enter your last name",
+    "errorRegister": "Error creating email. Email may already exist."
   },
   "HomeSection": {
     "home": "Home",
@@ -63,6 +64,7 @@
     "modifyImages": "Edit images",
     "add": "Add",
     "inputUrl": "Input image URL",
-    "wrongUrl": "The URL should end in .png, .jpg or any image format."
+    "wrongUrl": "The URL should end in .png, .jpg or any image format.",
+    "saved": "Data saved successfully"
   }
 }
