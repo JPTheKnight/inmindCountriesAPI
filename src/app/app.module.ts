@@ -18,6 +18,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
 import { AuthInterceptor } from './auth.interceptor';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,10 @@ import { AuthInterceptor } from './auth.interceptor';
     SigningModule,
     HomeModule,
     StoreModule.forRoot({ countries: countryReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
     EffectsModule.forRoot([CountryEffects]),
     NgxPermissionsModule.forRoot(),
     HttpClientModule,

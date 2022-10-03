@@ -27,6 +27,7 @@
     "@ngneat/transloco": "^4.1.1",
     "@ngrx/effects": "^12.5.1",
     "@ngrx/store": "^12.3.1",
+    "@ngrx/store-devtools": "^12.5.1",
     "bootstrap": "^5.2.0",
     "jwt-decode": "^3.1.2",
     "ng-image-slider": "^2.6.4",
